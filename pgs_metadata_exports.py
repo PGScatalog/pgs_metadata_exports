@@ -4,13 +4,19 @@ import argparse
 import requests
 import shutil
 import tarfile
-from pgs_exports.PGSExport import PGSExport
-from pgs_exports.PGSExportBulk import PGSExportAllMetadata
-from pgs_exports.PGSBuildFtp import PGSBuildFtp
-from pgs_exports.PGSBuildFtpRemote import PGSBuildFtpRemote
+from pgs_exports.PGSExport import PGSExport, PGSExportAllMetadata
+from pgs_exports.PGSBuildFtp import PGSBuildFtp, PGSBuildFtpRemote
 
 
 def rest_api_call(url,endpoint,parameters=None):
+    """"
+    Generic method to perform REST API calls to the PGS Catalog
+    > Parameters:
+        - url: URL to the REST API
+        - endpoint: REST API endpoint
+        - parameters: extra parameters to the REST API endpoint, if needed
+    > Return type: dictionary
+    """
     if not url.endswith('/'):
         url += '/'
     rest_full_url = url+endpoint
@@ -21,17 +27,18 @@ def rest_api_call(url,endpoint,parameters=None):
     try:
         response = requests.get(rest_full_url)
         response_json = response.json()
-        # With pagination
+        # Response with pagination
         if 'next' in response_json:
             count_items = response_json['count']
             results = response_json['results']
-            while response_json['next']:
+            # Loop over the pages
+            while response_json['next'] and count_items > len(results):
                 response = requests.get(response_json['next'])
                 response_json = response.json()
-                    
                 results = results + response_json['results']
             if count_items != len(results):
                 print(f'The number of items are differents from expected: {len(results)} found instead of {count_items}')
+        # Respone without pagination
         else:
             results = response_json
     except requests.exceptions.RequestException as e:  # This is the correct syntax
@@ -40,7 +47,12 @@ def rest_api_call(url,endpoint,parameters=None):
 
 
 def get_all_pgs_data(url_root):
-    """ Fetch all the PGS data via the REST API """
+    """ 
+    Fetch all the PGS data via the REST API
+    > Parameter:
+        - url_root: Root of the REST API URL
+    > Return type: dictionary
+    """
     data = {}
     for type in ['score', 'trait', 'publication', 'performance']:
         print(f'\t- Fetch all {type}s')
@@ -53,8 +65,13 @@ def get_all_pgs_data(url_root):
     return data
 
 
-def get_latest_release(url_root):
-    """ Fetch the date of the latest the PGS Catalog release """
+def get_latest_release(url_root) -> dict:
+    """
+    Fetch the date of the latest the PGS Catalog release
+    > Parameter:
+        - url_root: Root of the REST API URL
+    > Return type: dictionary
+    """
     release = ''
     release_data = rest_api_call(url_root, 'release/current')
     if release_data:
@@ -66,7 +83,12 @@ def get_latest_release(url_root):
 
 
 def get_previous_release(url_root):
-    """ Fetch the date of the latest the PGS Catalog release """
+    """
+    Fetch the date of the latest the PGS Catalog release
+    > Parameter:
+        - url_root: Root of the REST API URL
+    > Return type: dictionary
+    """
     release = ''
     release_data = rest_api_call(url_root, 'release/all')
     if release_data:
@@ -81,8 +103,13 @@ def get_previous_release(url_root):
 
 
 def create_pgs_directory(path, force_recreate=None):
-    """ Creates directory for a given PGS """
-    # Remove directory before generating it again
+    """
+    Creates directory for a given PGS
+    > Parameters:
+        - path: path of the directory
+        - force_recreate: if it already exists, remove it before creating it again
+    """
+    # Remove directory before creating it again
     if force_recreate and os.path.isdir(path):
         try:
             shutil.rmtree(path,ignore_errors=True)
@@ -100,7 +127,12 @@ def create_pgs_directory(path, force_recreate=None):
 
 
 def tardir(path, tar_name):
-    """ Generates a tarball of the new PGS FTP metadata files """
+    """
+    Generates a tarball of the new PGS FTP metadata files
+    > Parameters:
+        - path: path to the directory containing the files we want to compress
+        - tar_name: file name of the tar file
+    """
     with tarfile.open(tar_name, "w:gz") as tar_handle:
         for root, dirs, files in os.walk(path):
             for file in files:
@@ -114,7 +146,12 @@ def tardir(path, tar_name):
 #=========================#
 
 def generate_scores_list_file(scores_file, score_ids_list):
-    """ Generate file listing all the released Scores """
+    """
+    Generate file listing all the released Scores
+    > Parameters:
+        - scores_file: path to the file where we want to write the list of PGS IDs
+        - score_ids_list: list of the PGS IDs
+    """
     print("\t- Generate file listing all the released Scores")
     
     file = open(scores_file, 'w')
@@ -124,7 +161,14 @@ def generate_scores_list_file(scores_file, score_ids_list):
 
 
 def call_generate_all_metadata_exports(dirpath,data,debug,latest_release):
-    """ Generate all PGS metadata export files """
+    """
+    Generate all PGS metadata export files
+     > Parameters:
+        - dirpath: path to the directory where the metadata files will be stored
+        - data: dictionary containing the metadata
+        - debug: parameter to test the script (default:0 => non debug mode)
+        - latest_release: date of the latest (i.e. new) release
+    """
     print("\t- Generate all PGS metadata export files")
 
     datadir = dirpath+"all_metadata/"
@@ -169,7 +213,13 @@ def call_generate_all_metadata_exports(dirpath,data,debug,latest_release):
 
 
 def call_generate_studies_metadata_exports(dirpath,data,debug):
-    """ Generate PGS metadata export files for each released studies """
+    """
+    Generate PGS metadata export files for each released studies
+    > Parameters:
+        - dirpath: path to the directory where the metadata files will be stored
+        - data: dictionary containing the metadata
+        - debug: parameter to test the script (default:0 => non debug mode)
+    """
     print("\t- Generate PGS metadata export files for each released studies")
 
     if debug:
@@ -180,6 +230,7 @@ def call_generate_studies_metadata_exports(dirpath,data,debug):
     else:
         pgs_ids_list = [  x['id'] for x in data['score'] ]
 
+    # Loop over the PGS IDs
     for pgs_id in pgs_ids_list:
 
         print("\n# PGS "+pgs_id)
@@ -229,7 +280,16 @@ def call_generate_studies_metadata_exports(dirpath,data,debug):
 #=====================#
 
 def build_metadata_ftp(dirpath,dirpath_new,scores_id_list,previous_release,use_remote_ftp,debug):
-    """ Generates PGS specific metadata files (PGS by PGS) """
+    """
+    Generates PGS specific metadata files (PGS by PGS)
+    > Parameters:
+        - dirpath: path to the export directory where the metadata files are currently stored
+        - dirpath_new: path to the directory where the metadata files will be copied
+        - score_ids_list: list of the PGS IDs
+        - previous_release: date of the previous release
+        - use_remote_ftp: flag to indicate if the FTP can be accessed locally of via FTP protocol
+        - debug: parameter to test the script (default:0 => non debug mode)
+    """
     print("\t- Generates PGS specific metadata files (PGS by PGS)")
     temp_data_dir = dirpath
     temp_ftp_dir  = dirpath_new+'/scores/'
@@ -334,7 +394,14 @@ def build_metadata_ftp(dirpath,dirpath_new,scores_id_list,previous_release,use_r
 
 
 def build_bulk_metadata_ftp(dirpath,dirpath_new,previous_release,use_remote_ftp):
-    """ Generates the global metadata files (the ones containing all the PGS metadata) """
+    """
+    Generates the global metadata files (the ones containing all the PGS metadata)
+    > Parameters:
+        - dirpath: path to the export directory where the metadata files are currently stored
+        - dirpath_new: path to the directory where the metadata files will be copied
+        - previous_release: date of the previous release
+        - use_remote_ftp: flag to indicate if the FTP can be accessed locally of via FTP protocol
+    """
     print("\t- Generates the global metadata files (the ones containing all the PGS metadata)")
 
     temp_data_dir = dirpath
@@ -375,7 +442,13 @@ def build_bulk_metadata_ftp(dirpath,dirpath_new,previous_release,use_remote_ftp)
 
 
 def check_new_data_entry_in_metadata(dirpath_new,data,release_data):
-    """ Check that the metadata directory for the new Scores and Performance Metrics exists """
+    """
+    Check that the metadata directory for the new Scores and Performance Metrics exists
+    > Parameters:
+        - dirpath_new: path to the directory where the metadata files have be copied
+        - data: dictionary containing the metadata
+        - release_data: data related to the current release
+    """
     scores_dir = dirpath_new+'/scores/'
  
     # Score(s)
@@ -402,7 +475,6 @@ def check_new_data_entry_in_metadata(dirpath_new,data,release_data):
 
 
 
-
 #===============#
 #  Main method  #
 #===============#
@@ -412,6 +484,8 @@ def main():
     debug = 0
     tmp_export_dir_name = 'export'
     tmp_ftp_dir_name = 'new_ftp_content'
+
+    # Script parameters
     argparser = argparse.ArgumentParser()
     argparser.add_argument("--url", help='The URL root of the REST API, e.g. "http://127.0.0.1:8000/rest/"', required=True)
     argparser.add_argument("--dir", help=f'The path of the root dir of the metadata "<dir>/{tmp_ftp_dir_name}"', required=True)
@@ -430,23 +504,30 @@ def main():
         print(f'Directory {content_dir} can\'t be found!')
         exit(1)
 
+    # Setup new FTP directory
     new_ftp_dir = content_dir+'/'+tmp_ftp_dir_name
     create_pgs_directory(new_ftp_dir , 1)
 
+    # Setup temporary export directory
     export_dir = content_dir+'/'+tmp_export_dir_name+'/'
     create_pgs_directory(export_dir, 1)
 
-    scores_list_file = new_ftp_dir+'/pgs_scores_list.txt'
-
+    # Fetch all the metadata (via REST API)
+    print('\t- Fetch metadata')
     data = get_all_pgs_data(rest_url_root)
 
+    # Fetch releases data (current and previous)
     print('\t- Fetch release dates')
     current_release = get_latest_release(rest_url_root)
     current_release_date = current_release['date']
     previous_release_date = get_previous_release(rest_url_root)['date']
  
+
+    # Setup path to some of the extra export files
+    scores_list_file = new_ftp_dir+'/pgs_scores_list.txt'
     archive_file_name = '{}/../pgs_ftp_{}.tar.gz'.format(export_dir,current_release_date)
 
+    # Get the list of published PGS IDs
     score_ids_list = [ x['id'] for x in data['score'] ]
 
     # Generate file listing all the released Scores
