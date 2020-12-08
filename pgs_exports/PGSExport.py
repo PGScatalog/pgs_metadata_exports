@@ -1,9 +1,14 @@
 import sys, os.path, tarfile
 import pandas as pd
 import hashlib
-#from catalog.models import *
+
+
+#-----------------#
+# Class PGSExport #
+#-----------------#
 
 class PGSExport:
+    """ Export each PGS metadata in different Excel file. """
 
     #---------------#
     # Configuration #
@@ -110,6 +115,11 @@ class PGSExport:
         other_metric_key: other_metric_label
     }
 
+
+    #-----------------#
+    # General methods #
+    #-----------------#
+
     def __init__(self,filename, data):
         self.filename = filename
         self.data = data
@@ -126,6 +136,7 @@ class PGSExport:
         self.spreadsheets_list = [
             'scores', 'perf', 'samplesets', 'samples_development', 'publications', 'efo_traits'
         ]
+
 
     def set_pgs_list(self, pgs_list):
         """ List the PGS IDs used to generate the metadata files """
@@ -536,23 +547,26 @@ class PGSExport:
         return object_data
 
 
-    # def format_demographic_data(self, demographic):
-    #     """ Combine the different elements of the Demographic model within 1 line """
-    #     data = []
-    #     if demographic:
-    #         # Extract and format demographic data
-    #         estimate = demographic.format_estimate()
-    #         if not estimate:
-    #             estimate = demographic.format_range()
-    #         variability = demographic.format_variability()
 
-    #         # Add formatted data
-    #         if estimate:
-    #             data.append(estimate)
-    #         if variability:
-    #             data.append(variability)
-    #         if data:
-    #             data.append(demographic.format_unit())
-    #     if data:
-    #         return ';'.join(data)
-    #     return ''
+
+#----------------------------#
+# Class PGSExportAllMetadata #
+#----------------------------#
+
+class PGSExportAllMetadata(PGSExport):
+    """ Export all the PGS metadata in a unique Excel file. """
+
+    def create_readme_spreadsheet(self, release):
+        """ Info/readme spreadsheet """
+
+        readme_data = {}
+
+        readme_data['PGS Catalog version'] = [release]
+        readme_data['Number of Polygenic Scores'] = [len(self.data['score'])]
+        readme_data['Number of Traits'] = [len(self.data['trait'])]
+        readme_data['Number of Publications'] = [len(self.data['publication'])]
+
+        df = pd.DataFrame(readme_data)
+        df = df.transpose()
+        df.to_excel(self.writer, sheet_name="Readme", header=False)
+
