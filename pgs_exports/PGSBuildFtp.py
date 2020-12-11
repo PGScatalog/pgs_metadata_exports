@@ -105,14 +105,11 @@ class PGSBuildFtpRemote(PGSBuildFtp):
         if self.type == 'metadata':
             if self.pgs_id == 'all':
                 path += self.meta_dir.lower()
-                #filename = self.all_meta_file
             else:
                 path += self.data_dir+self.pgs_id+self.meta_dir
-                #filename = self.pgs_id+self.file_suffix
         # Score file
         else:
             path += self.data_dir+self.pgs_id+'/'+self.scoring_dir
-            #filename = self.pgs_id+self.file_suffix
 
         ftp = FTP(self.ftp_root)     # connect to host, default port
         ftp.login()                  # user anonymous, passwd anonymous@
