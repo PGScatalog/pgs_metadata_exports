@@ -9,5 +9,5 @@ optional arguments:
   -h, --help    show this help message and exit
   --url URL     The URL root of the REST API, e.g. "http://127.0.0.1:8000/rest/"
   --dir DIR     The path of the root dir of the metadata "<dir>/new_ftp_content"
-  --remote_ftp  Flag to indicate whether the FTP is remote (FTP protocol) or local (file system)
+  --remote_ftp  Flag to indicate whether the FTP is remote (FTP protocol) or local (file system) - Default: False (file system)
 ```
