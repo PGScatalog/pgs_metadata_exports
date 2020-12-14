@@ -489,7 +489,7 @@ def main():
     argparser = argparse.ArgumentParser()
     argparser.add_argument("--url", help='The URL root of the REST API, e.g. "http://127.0.0.1:8000/rest/"', required=True)
     argparser.add_argument("--dir", help=f'The path of the root dir of the metadata "<dir>/{tmp_ftp_dir_name}"', required=True)
-    argparser.add_argument("--remote_ftp", help='Flag to indicate whether the FTP is remote (FTP protocol) or local (file system)', action='store_true')
+    argparser.add_argument("--remote_ftp", help='Flag to indicate whether the FTP is remote (FTP protocol) or local (file system) - Default: False (file system)', action='store_true')
 
     args = argparser.parse_args()
 
