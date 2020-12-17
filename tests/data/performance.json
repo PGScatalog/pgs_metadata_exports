@@ -1,0 +1,209 @@
+[
+    {
+        "id": "PPM1",
+        "associated_pgs_id": "PGS1",
+        "phenotyping_reported": "All breast cancer",
+        "publication": {
+            "id": "PGP1",
+            "title": "Test publication 1.",
+            "doi": "10.1010/test/test1",
+            "PMID": 10000001,
+            "journal": "Test Journal",
+            "firstauthor": "First T",
+            "date_publication": "2020-12-01"
+        },
+        "sampleset": {
+            "id": "PSS1",
+            "samples": [
+                {
+                    "sample_number": 61055,
+                    "sample_cases": 30673,
+                    "sample_controls": 30382,
+                    "sample_percent_male": null,
+                    "sample_age": null,
+                    "phenotyping_free": "All breast cancer",
+                    "followup_time": null,
+                    "ancestry_broad": "European",
+                    "ancestry_free": null,
+                    "ancestry_country": "Australia, Belarus, Belgium, Canada, Denmark, Finland, France, Germany, Greece, Ireland, Netherlands, Norway, Poland, Sweden, UK, USA",
+                    "ancestry_additional": null,
+                    "source_GWAS_catalog": null,
+                    "source_PMID": null,
+                    "cohorts": [
+                        {
+                            "name_short": "ABC",
+                            "name_full": "Cohort ABC"
+                        },
+                        {
+                            "name_short": "DEF",
+                            "name_full": "Cohort DEF"
+                        },
+                        {
+                            "name_short": "GHIJ",
+                            "name_full": "Cohort GHIJ"
+                        }
+                    ],
+                    "cohorts_additional": "iCOGS"
+                }
+            ]
+        },
+        "performance_metrics": {
+            "effect_sizes": [
+                {
+                    "labels": [
+                        "Odds Ratio",
+                        "OR"
+                    ],
+                    "value": "1.53 [1.50, 1.56]"
+                }
+            ],
+            "class_acc": [
+                {
+                    "labels": [
+                        "Concordance Statistic",
+                        "C-index"
+                    ],
+                    "value": "0.522 [0.519, 0.527]"
+                }
+            ],
+            "othermetrics": []
+        },
+        "covariates": null,
+        "performance_comments": null
+    },
+    {
+        "id": "PPM02",
+        "associated_pgs_id": "PGS2",
+        "phenotyping_reported": "ER-positive breast cancer",
+        "publication": {
+            "id": "PGP1",
+            "title": "Test publication 1.",
+            "doi": "10.1010/test/test1",
+            "PMID": 10000001,
+            "journal": "Test Journal",
+            "firstauthor": "First T",
+            "date_publication": "2020-12-01"
+        },
+        "sampleset": {
+            "id": "PSS2",
+            "samples": [
+                {
+                    "sample_number": 51925,
+                    "sample_cases": 20365,
+                    "sample_controls": 31560,
+                    "sample_percent_male": null,
+                    "sample_age": null,
+                    "phenotyping_free": "ER-positive breast cancer",
+                    "followup_time": null,
+                    "ancestry_broad": "European",
+                    "ancestry_free": null,
+                    "ancestry_country": "Australia, Belarus, Belgium, Canada, Denmark, Finland, France, Germany, Greece, Ireland, Netherlands, Norway, Poland, Sweden, UK, USA",
+                    "ancestry_additional": null,
+                    "source_GWAS_catalog": null,
+                    "source_PMID": null,
+                    "cohorts": [
+                        {
+                            "name_short": "ABC",
+                            "name_full": "Cohort ABC"
+                        },
+                        {
+                            "name_short": "DEF",
+                            "name_full": "Cohort DEF"
+                        },
+                        {
+                            "name_short": "KLMN",
+                            "name_full": "Cohort KLMN"
+                        }
+                    ],
+                    "cohorts_additional": "iCOGS"
+                }
+            ]
+        },
+        "performance_metrics": {
+            "effect_sizes": [
+                {
+                    "labels": [
+                        "Odds Ratio",
+                        "OR"
+                    ],
+                    "value": "1.64 [1.6, 1.68]"
+                }
+            ],
+            "class_acc": [],
+            "othermetrics": []
+        },
+        "covariates": null,
+        "performance_comments": null
+    },
+    {
+        "id": "PPM3",
+        "associated_pgs_id": "PGS3",
+        "phenotyping_reported": "Ischaemic stroke before age 75",
+        "publication": {
+            "id": "PGP2",
+            "title": "Test publication 2",
+            "doi": "10.1010/test/test2",
+            "PMID": 10000002,
+            "journal": "Test Journal v2",
+            "firstauthor": "Second T",
+            "date_publication": "2019-10-01"
+        },
+        "sampleset": {
+            "id": "PSS3",
+            "samples": [
+                {
+                    "sample_number": 397390,
+                    "sample_cases": 4075,
+                    "sample_controls": 393315,
+                    "sample_percent_male": 45.4,
+                    "sample_age": {
+                        "mean": "54.3",
+                        "unit": "years"
+                    },
+                    "phenotyping_free": "Prevalent and incident Ischaemic stroke",
+                    "followup_time": {
+                        "mean": "6.2",
+                        "sd": 1.7,
+                        "unit": "years"
+                    },
+                    "ancestry_broad": "European",
+                    "ancestry_free": null,
+                    "ancestry_country": "UK",
+                    "ancestry_additional": null,
+                    "source_GWAS_catalog": null,
+                    "source_PMID": null,
+                    "cohorts": [
+                        {
+                            "name_short": "UKB",
+                            "name_full": "UK Biobank "
+                        }
+                    ],
+                    "cohorts_additional": "Validation set"
+                }
+            ]
+        },
+        "performance_metrics": {
+            "effect_sizes": [
+                {
+                    "labels": [
+                        "Hazard Ratio",
+                        "HR"
+                    ],
+                    "value": "1.24 [1.20, 1.29]"
+                }
+            ],
+            "class_acc": [
+                {
+                    "labels": [
+                        "Concordance Statistic",
+                        "C-index"
+                    ],
+                    "value": "0.581 [0.571, 0.592]"
+                }
+            ],
+            "othermetrics": []
+        },
+        "covariates": "Sex, genotyping chip",
+        "performance_comments": "Extra comment for test"
+    }
+]
