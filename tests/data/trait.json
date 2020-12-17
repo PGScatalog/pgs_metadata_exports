@@ -1,0 +1,169 @@
+[
+    {
+        "id": "EFO_0000305",
+        "label": "breast carcinoma",
+        "description": "A carcinoma that arises from epithelial cells of the breast [MONDO: DesignPattern]",
+        "url": "http://www.ebi.ac.uk/efo/EFO_0000305",
+        "trait_categories": [
+            "Cancer"
+        ],
+        "trait_synonyms": [
+            "CA - Carcinoma of breast",
+            "Carcinoma of breast (disorder)",
+            "Carcinoma of breast NOS",
+            "Carcinoma of breast NOS (disorder)",
+            "Carcinoma of the Breast",
+            "Carcinoma, Human Mammary",
+            "Carcinomas, Human Mammary",
+            "Human Mammary Carcinoma",
+            "Human Mammary Carcinomas",
+            "Mammary Carcinoma, Human",
+            "Mammary Carcinomas, Human",
+            "Mammary carcinoma",
+            "breast carcinoma",
+            "carcinoma OF breast",
+            "carcinoma of breast",
+            "carcinoma of the breast",
+            "mammary carcinoma"
+        ],
+        "trait_mapped_terms": [
+            "DOID:3459",
+            "ICD10:D05",
+            "MONDO:0004989",
+            "MSH:D001943",
+            "NCIT:C4872",
+            "NCIt:C4872",
+            "OMIM:114480",
+            "OMIM:615554",
+            "SCTID:254838004",
+            "SNOMEDCT:254838004",
+            "UMLS:C0678222"
+        ],
+        "associated_pgs_ids": [
+            "PGS1"
+        ]
+    },
+    {
+        "id": "EFO_1000649",
+        "label": "estrogen-receptor positive breast cancer",
+        "description": "A subtype of breast cancer that is estrogen-receptor positive [EFO: 1000649]",
+        "url": "http://www.ebi.ac.uk/efo/EFO_1000649",
+        "trait_categories": [
+            "Cancer"
+        ],
+        "trait_synonyms": [
+            "ER+ breast cancer",
+            "estrogen receptor positive breast cancer",
+            "estrogen-receptor positive breast cancer"
+        ],
+        "trait_mapped_terms": [
+            "DOID:0060075",
+            "MONDO:0006512"
+        ],
+        "associated_pgs_ids": [
+            "PGS2"
+        ]
+    },
+    {
+        "id": "EFO_0000712",
+        "label": "stroke",
+        "description": "A sudden loss of neurological function secondary to hemorrhage or ischemia in the brain parenchyma due to a vascular event. [NCIT: C3390]",
+        "url": "http://www.ebi.ac.uk/efo/EFO_0000712",
+        "trait_categories": [
+            "Cardiovascular disease",
+            "Neurological disorder"
+        ],
+        "trait_synonyms": [
+            "Acute Cerebrovascular Accident",
+            "Acute Cerebrovascular Accidents",
+            "Acute Stroke",
+            "Acute Strokes",
+            "Apoplexy",
+            "Apoplexy, Cerebrovascular",
+            "Brain Vascular Accident",
+            "Brain Vascular Accidents",
+            "CEREBROVASCULAR ACCIDENT, (CVA)",
+            "CVA",
+            "CVA (Cerebrovascular Accident)",
+            "CVA (cerebral vascular accident)",
+            "CVA - Cerebrovascular accident",
+            "CVA - Cerebrovascular accident unspecified",
+            "CVA, CEREBROVASCULAR ACCIDENT",
+            "CVA, cerebrovascular accident",
+            "CVAs (Cerebrovascular Accident)",
+            "Cerebral Stroke",
+            "Cerebral Strokes",
+            "Cerebrovascular Accident",
+            "Cerebrovascular Accident, Acute",
+            "Cerebrovascular Accidents",
+            "Cerebrovascular Accidents, Acute",
+            "Cerebrovascular Apoplexy",
+            "Cerebrovascular Apoplexya",
+            "Cerebrovascular Stroke",
+            "Cerebrovascular Strokes",
+            "Cerebrovascular accident (disorder)",
+            "Cerebrovascular accident (disorder) [Ambiguous]",
+            "STROKE SYNDROME",
+            "SYNDROME, STROKE",
+            "Stroke NOS",
+            "Stroke NOS (disorder)",
+            "Stroke and cerebrovascular accident unspecified",
+            "Stroke and cerebrovascular accident unspecified (disorder)",
+            "Stroke, Acute",
+            "Stroke, Cerebral",
+            "Stroke, Cerebrovascular",
+            "Stroke/CVA - undefined",
+            "Strokes",
+            "Strokes, Acute",
+            "Strokes, Cerebral",
+            "Strokes, Cerebrovascular",
+            "Vascular Accident, Brain",
+            "Vascular Accidents, Brain",
+            "cerebral infarction",
+            "cerebrovascular accident",
+            "cerebrovascular accident, (CVA)",
+            "ischemic stroke",
+            "stroke",
+            "stroke disorder",
+            "stroke syndrome",
+            "syndrome, stroke",
+            "undetermined stroke"
+        ],
+        "trait_mapped_terms": [
+            "HP:0001297",
+            "ICD10:I64",
+            "MESH:D020521",
+            "MONDO:0005098",
+            "MSH:D020521",
+            "NCIT:C3390",
+            "NCIt:C3390",
+            "NIFSTD:birnlex_12783",
+            "OMIM:601367",
+            "SCTID:230690007",
+            "SNOMEDCT:230690007",
+            "SNOMEDCT:422504002"
+        ],
+        "associated_pgs_ids": [
+            "PGS3"
+        ]
+    },
+    {
+        "id": "HP_0002140",
+        "label": "Ischemic stroke",
+        "description": null,
+        "url": "https://www.ebi.ac.uk/ols/ontologies/efo/terms?iri=http://purl.obolibrary.org/obo/HP_0002140",
+        "trait_categories": [
+            "Other trait"
+        ],
+        "trait_synonyms": [
+            "Ischaemic stroke"
+        ],
+        "trait_mapped_terms": [
+            "SNOMEDCT_US:422504002",
+            "UMLS:C0948008"
+        ],
+        "associated_pgs_ids": [
+            "PGS3"
+        ]
+    }
+]

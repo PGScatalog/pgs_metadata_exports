@@ -1,0 +1,2 @@
+Polygenic Score (PGS) ID,Stage of PGS Development,Number of Individuals,Number of Cases,Number of Controls,Percent of Participants Who are Male,Sample Age,Broad Ancestry Category,"Ancestry (e.g. French, Chinese)",Country of Recruitment,Additional Ancestry Description,Phenotype Definitions and Methods,Followup Time,GWAS Catalog Study ID (GCST...),Source PubMed ID (PMID) or doi,Cohort(s),Additional Sample/Cohort Information
+PGS2,Source of Variant Associations (GWAS),1234,,,,,European,NR,"Finland, Sweden, U.S., Australia, Netherlands, Germany, U.K.",,,,GCST1,10000011,,

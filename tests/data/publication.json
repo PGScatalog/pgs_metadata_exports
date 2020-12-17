@@ -1,0 +1,29 @@
+[
+    {
+        "id": "PGP1",
+        "title": "Test publication 1.",
+        "doi": "10.1010/test/test1",
+        "PMID": 10000001,
+        "journal": "Test Journal",
+        "firstauthor": "First T",
+        "date_publication": "2020-12-01",
+        "authors": "First T, Other A, Other B",
+        "associated_pgs_ids": [
+            "PGS1",
+            "PGS2"
+        ]
+    },
+    {
+        "id": "PGP2",
+        "title": "Test publication 2",
+        "doi": "10.1010/test/test2",
+        "PMID": 10000002,
+        "journal": "Test Journal v2",
+        "firstauthor": "Second T",
+        "date_publication": "2019-10-01",
+        "authors": "Second T, Other C, Other D, Other E",
+        "associated_pgs_ids": [
+            "PGS3"
+        ]
+    }
+]

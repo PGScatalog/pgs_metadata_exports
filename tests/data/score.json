@@ -1,0 +1,201 @@
+[
+    {
+        "id": "PGS1",
+        "name": "PRS1",
+        "ftp_scoring_file": "http://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/PGS1/ScoringFiles/PGS1.txt.gz",
+        "publication": {
+        "id": "PGP1",
+        "title": "Test publication 1.",
+        "doi": "10.1010/test/test1",
+        "PMID": 10000001,
+        "journal": "Test Journal",
+        "firstauthor": "First T",
+        "date_publication": "2020-12-01"
+    },
+        "matches_publication": true,
+        "samples_variants": [
+            {
+                "sample_number": 1234,
+                "sample_cases": null,
+                "sample_controls": null,
+                "sample_percent_male": null,
+                "sample_age": null,
+                "phenotyping_free": null,
+                "followup_time": null,
+                "ancestry_broad": "European",
+                "ancestry_free": "NR",
+                "ancestry_country": "Finland, Sweden, U.S., Australia, Netherlands, Germany, U.K.",
+                "ancestry_additional": null,
+                "source_GWAS_catalog": "GCST1",
+                "source_PMID": "10000011",
+                "cohorts": [ ],
+                "cohorts_additional": null
+            }
+        ],
+        "samples_training": [ ],
+        "trait_reported": "Breast Cancer",
+        "trait_additional": null,
+        "trait_efo": [
+            {
+                "id": "EFO_0000305",
+                "label": "breast carcinoma",
+                "description": "A carcinoma that arises from epithelial cells of the breast [MONDO: DesignPattern]",
+                "url": "http://www.ebi.ac.uk/efo/EFO_0000305"
+            }
+        ],
+        "method_name": "SNPs passing genome-wide significance",
+        "method_params": "P<5x10-8",
+        "variants_number": 100,
+        "variants_interactions": 0,
+        "variants_genomebuild": "NR",
+        "license": "PGS obtained from the Catalog should be cited appropriately, and used in accordance with any licensing restrictions set by the authors. See EBI Terms of Use (https://www.ebi.ac.uk/about/terms-of-use/) for additional details."
+    },
+    {
+        "id": "PGS2",
+        "name": "PRS2",
+        "ftp_scoring_file": "http://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/PGS2/ScoringFiles/PGS2.txt.gz",
+        "publication": {
+            "id": "PGP1",
+            "title": "Test publication 1",
+            "doi": "10.1010/test/test1",
+            "PMID": 10000001,
+            "journal": "Test Journal",
+            "firstauthor": "First T",
+            "date_publication": "2020-12-01"
+        },
+        "matches_publication": true,
+        "samples_variants": [
+            {
+                "sample_number": 1234,
+                "sample_cases": null,
+                "sample_controls": null,
+                "sample_percent_male": null,
+                "sample_age": null,
+                "phenotyping_free": null,
+                "followup_time": null,
+                "ancestry_broad": "European",
+                "ancestry_free": "NR",
+                "ancestry_country": "Finland, Sweden, U.S., Australia, Netherlands, Germany, U.K.",
+                "ancestry_additional": null,
+                "source_GWAS_catalog": "GCST1",
+                "source_PMID": "10000011",
+                "cohorts": [ ],
+                "cohorts_additional": null
+            }
+        ],
+        "samples_training": [ ],
+        "trait_reported": "ER-positive Breast Cancer",
+        "trait_additional": null,
+        "trait_efo": [
+            {
+                "id": "EFO_1000649",
+                "label": "estrogen-receptor positive breast cancer",
+                "description": "A subtype of breast cancer that is estrogen-receptor positive [EFO: 1000649]",
+                "url": "http://www.ebi.ac.uk/efo/EFO_1000649"
+            }
+        ],
+        "method_name": "SNPs passing genome-wide significance",
+        "method_params": "P<5x10-8",
+        "variants_number": 100,
+        "variants_interactions": 0,
+        "variants_genomebuild": "NR",
+        "license": "PGS obtained from the Catalog should be cited appropriately, and used in accordance with any licensing restrictions set by the authors. See EBI Terms of Use (https://www.ebi.ac.uk/about/terms-of-use/) for additional details."
+    },
+    {
+        "id": "PGS3",
+        "name": "PRS3",
+        "ftp_scoring_file": "http://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/PGS000039/ScoringFiles/PGS000039.txt.gz",
+        "publication": {
+            "id": "PGP2",
+            "title": "Test publication 2",
+            "doi": "10.1010/test/test2",
+            "PMID": 10000002,
+            "journal": "Test Journal v2",
+            "firstauthor": "Second T",
+            "date_publication": "2019-10-01"
+        },
+        "matches_publication": true,
+        "samples_variants": [
+            {
+                "sample_number": 230000,
+                "sample_cases": null,
+                "sample_controls": null,
+                "sample_percent_male": null,
+                "sample_age": null,
+                "phenotyping_free": "Ischaemic stroke",
+                "followup_time": null,
+                "ancestry_broad": "European",
+                "ancestry_free": "NR",
+                "ancestry_country": "Canada, U.S., Australia, Austria, Belgium, France, Germany, Netherlands, Switzerland, Poland, Denmark, Finland, Iceland, Norway, Sweden, U.K., Italy, Spain, NR",
+                "ancestry_additional": null,
+                "source_GWAS_catalog": "GCST2",
+                "source_PMID": "10000012",
+                "cohorts": [ ],
+                "cohorts_additional": "name: IS"
+            },
+            {
+                "sample_number": 250000,
+                "sample_cases": null,
+                "sample_controls": null,
+                "sample_percent_male": null,
+                "sample_age": null,
+                "phenotyping_free": "Any stroke",
+                "followup_time": null,
+                "ancestry_broad": "European",
+                "ancestry_free": "NR",
+                "ancestry_country": "Canada, U.S., Australia, Austria, Belgium, France, Germany, Netherlands, Switzerland, Poland, Denmark, Finland, Iceland, Sweden, U.K., Italy, Spain, NR",
+                "ancestry_additional": null,
+                "source_GWAS_catalog": "GCST3",
+                "source_PMID": "10000013",
+                "cohorts": [ ],
+                "cohorts_additional": "name: AS"
+            }
+        ],
+        "samples_training": [
+            {
+                "sample_number": 11000,
+                "sample_cases": 850,
+                "sample_controls": 10150,
+                "sample_percent_male": null,
+                "sample_age": null,
+                "phenotyping_free": "Prevalent and incident Ischaemic stroke; defined in http://biobank.ndph.ox.ac.uk/showcase/docs/alg_outcome_stroke.pdf",
+                "followup_time": null,
+                "ancestry_broad": "European",
+                "ancestry_free": null,
+                "ancestry_country": "UK",
+                "ancestry_additional": null,
+                "source_GWAS_catalog": null,
+                "source_PMID": null,
+                "cohorts": [
+                    {
+                        "name_short": "UKB",
+                        "name_full": "UK Biobank"
+                    }
+                ],
+                "cohorts_additional": "Tuning set"
+            }
+        ],
+        "trait_reported": "Ischaemic stroke",
+        "trait_additional": null,
+        "trait_efo": [
+            {
+                "id": "EFO_0000712",
+                "label": "stroke",
+                "description": "A sudden loss of neurological function secondary to hemorrhage or ischemia in the brain parenchyma due to a vascular event. [NCIT: C3390]",
+                "url": "http://www.ebi.ac.uk/efo/EFO_0000712"
+            },
+            {
+                "id": "HP_0002140",
+                "label": "Ischemic stroke",
+                "description": null,
+                "url": "https://www.ebi.ac.uk/ols/ontologies/efo/terms?iri=http://purl.obolibrary.org/obo/HP_0002140"
+            }
+        ],
+        "method_name": "metaGRS of 19 component PGSs",
+        "method_params": "LD thinning of 19 component PGSs",
+        "variants_number": 3200000,
+        "variants_interactions": 0,
+        "variants_genomebuild": "hg19",
+        "license": "PGS obtained from the Catalog should be cited appropriately, and used in accordance with any licensing restrictions set by the authors. See EBI Terms of Use (https://www.ebi.ac.uk/about/terms-of-use/) for additional details."
+    }
+]
