@@ -1,5 +1,4 @@
 import sys, os.path
-import pandas as pd
 from pgs_exports.PGSExport import PGSExport, PGSExportAllMetadata
 
 #--------------------------------#
