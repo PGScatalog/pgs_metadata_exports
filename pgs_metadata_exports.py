@@ -1,4 +1,4 @@
-import os, os.path, sys, glob
+import os, os.path, sys
 import re
 import argparse
 import requests
@@ -261,6 +261,7 @@ def main():
 
     # Generates the compressed archive to be copied to the EBI Private FTP
     tardir(new_ftp_dir, archive_file_name)
+
 
 if __name__ == '__main__':
     main()

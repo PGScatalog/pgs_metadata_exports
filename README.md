@@ -1,9 +1,14 @@
 # PGS Catalog Metadata Exports
 Package to export PGS Catalog metadata
 
-Usage
+## Installation
 ```
-usage: pgs_metadata_exports.py [-h] --url URL --dir DIR [--remote_ftp]
+pip install -r requirements.txt
+```
+
+## Usage
+```
+usage: python pgs_metadata_exports.py [-h] --url URL --dir DIR [--remote_ftp]
 
 optional arguments:
   -h, --help    show this help message and exit
