@@ -312,7 +312,6 @@ class PGSExport:
             full_header = metrics_header[m_header]
             perf_data[full_header]  = []
 
-
         performances = []
         if len(self.pgs_list) == 0:
             performances = self.data['performance']
@@ -339,28 +338,31 @@ class PGSExport:
                 metrics_data[m_header] = ""
 
             performance_metrics = perf['performance_metrics']
-            # Effect sizes
-            effect_sizes_list = performance_metrics['effect_sizes']
-            if effect_sizes_list:
-                for metric in effect_sizes_list:
-                    for label in metric['labels']:
-                        if label in metrics_type:
-                            m_header = metrics_header[label]
-                            metrics_data[m_header] = metric['value']
-            # Classification metrics
-            class_acc_list = performance_metrics['class_acc']
-            if class_acc_list:
-                for metric in class_acc_list:
-                    for label in metric['labels']:
-                        if label in metrics_type:
-                            m_header = metrics_header[label]
-                            metrics_data[m_header] = metric['value']
+            # Effect sizes and Classification metrics
+            for metric_category in ('effect_sizes', 'class_acc'):
+                metrics_list = performance_metrics[metric_category]
+                if metrics_list:
+                    for metric in metrics_list:
+                        metric_name = metric['name_short']
+                        if metric_name in metrics_type:
+                            m_header = metrics_header[metric_name]
+                            metrics_data[m_header] = metric['estimate']
+                            if 'ci_lower' in metric:
+                                metrics_data[m_header] = str(metrics_data[m_header])
+                                metrics_data[m_header] += ' [{},{}]'.format(metric['ci_lower'],metric['ci_upper'])
+                            elif 'se' in metric:
+                                metrics_data[m_header] = str(metrics_data[m_header])
+                                metrics_data[m_header] += ' ({})'.format(metric['se'])
             # Other metrics
             othermetrics_list = performance_metrics['othermetrics']
             if othermetrics_list:
                 for metric in othermetrics_list:
-                    m_label = metric['labels'][0]
-                    m_data = m_label+" = "+metric['value']
+                    m_label = metric['name_short']
+                    m_data = m_label+" = "+str(metric['estimate'])
+                    if 'ci_lower' in metric:
+                        m_data += ' [{},{}]'.format(metric['ci_lower'],metric['ci_upper'])
+                    elif 'se' in metric:
+                        m_data += ' ({})'.format(metric['se'])
                     if metrics_data[other_metric_label] == '':
                         metrics_data[other_metric_label] = m_data
                     else:
@@ -412,9 +414,6 @@ class PGSExport:
 
             samplesets[pss_id] = sampleset
 
-        #samplesets = list(samplesets)
-        #samplesets.sort(key=lambda x: x['id'], reverse=False)
-
         for pss_id in sorted(samplesets.keys()):
             scores_ids = list(score_samplesets[pss_id])
             scores = ', '.join(sorted(scores_ids))
@@ -426,18 +425,35 @@ class PGSExport:
 
                 for sample_column in sample_object_labels.keys():
                     if self.not_in_extra_fields_to_include(sample_column):
-                        sample_value = sample[sample_column]
+                        # Demographic data (not a simple key:value element)
+                        if sample_column in ('sample_age','followup_time'):
+                            demographic = sample[sample_column]
+                            sample_value = None
+                            if demographic:
+                                sample_value = ''
+                                if 'estimate' in demographic:
+                                    sample_value += '{}:{}'.format(demographic['estimate_type'],demographic['estimate'])
+                                if 'interval' in demographic:
+                                    if sample_value != '':
+                                        sample_value += ';'
+                                    interval = demographic['interval']
+                                    sample_value += '{}:[{},{}]'.format(interval['type'],interval['lower'],interval['upper'])
+                                if 'variability' in demographic:
+                                    if sample_value != '':
+                                        sample_value += ';'
+                                    sample_value += '{}:{}'.format(demographic['variability_type'],demographic['variability'])
+                                if 'unit' in demographic:
+                                    if sample_value != '':
+                                        sample_value += ';'
+                                    sample_value += 'unit:{}'.format(demographic['unit'])
+                        else:
+                            sample_value = sample[sample_column]
                         object_data[sample_object_labels[sample_column]].append(sample_value)
-                        #sample_object_method_name = getattr(sample, sample_column)
-                        #object_data[sample_object_labels[sample_column]].append(sample_object_method_name)
 
                 for column in object_labels.keys():
                     if self.not_in_extra_fields_to_include(column):
                         value = pss[column]
                         object_data[object_labels[column]].append(value)
-     
-                        #object_method_name = getattr(pss, column)
-                        #object_data[object_labels[column]].append(object_method_name)
         return object_data
 
 
@@ -475,8 +491,6 @@ class PGSExport:
                             if self.not_in_extra_fields_to_include(column):
                                 value = sample[column]
                                 object_data[object_labels[column]].append(value)
-                                #object_method_name = getattr(sample, column)
-                                #object_data[object_labels[column]].append(object_method_name)
 
                         object_data[object_labels['cohorts_list']].append(', '.join([c['name_short'] for c in sample['cohorts']]))
 
