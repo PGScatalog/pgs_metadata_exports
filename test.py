@@ -114,19 +114,19 @@ class TestSum(unittest.TestCase):
             xls_filename = f'{pgs_id}_metadata.xlsx'
             test_xls_filepath = f'{test_dir}/{xls_filename}'
             # Test file exist
-            assert os.path.exists(test_xls_filepath) == 1
+            self.assertEqual(os.path.exists(test_xls_filepath),1)
             # Test file not empty
             test_xls_filesize = os.path.getsize(test_xls_filepath)
-            assert test_xls_filesize > 0
+            self.assertGreater(test_xls_filesize,0)
 
             # tar.gz file
             tar_filename = f'{pgs_id}_metadata.tar.gz'
             test_tar_filepath = f'{self.export_dir}/{tar_filename}'
             # Test file exist
-            assert os.path.exists(test_tar_filepath) == 1
+            self.assertEqual(os.path.exists(test_tar_filepath),1)
             # Test file not empty
             test_tar_filesize = os.path.getsize(test_tar_filepath)
-            assert test_tar_filesize > 0
+            self.assertGreater(test_tar_filesize,0)
 
 
     def get_md5_file_checksum(self,filename,blocksize=4096):
@@ -151,13 +151,13 @@ class TestSum(unittest.TestCase):
     def compare_md5_and_size(self,filename,test_filepath,ref_filepath):
         print(f' - {filename}')
         # Test file exist
-        assert os.path.exists(test_filepath) == 1
+        self.assertEqual(os.path.exists(test_filepath),1)
 
         # Compare file MD5
         test_file_md5 = self.get_md5_file_checksum(test_filepath)
         ref_file_md5 = self.get_md5_file_checksum(ref_filepath)
         try:
-            assert test_file_md5 == ref_file_md5
+            self.assertEqual(test_file_md5,ref_file_md5)
         except:
             print(f'\t> MD5: test => {test_file_md5}')
             print(f'\t> MD5: ref  => {ref_file_md5}')
@@ -167,7 +167,8 @@ class TestSum(unittest.TestCase):
             if test_filesize != ref_filesize:
                 print(f'\t> Size: test => {test_filesize}')
                 print(f'\t> Size: ref  => {ref_filesize}')
-            assert test_filesize == ref_filesize
+            self.assertEqual(test_filesize,ref_filesize)
+
 
 
 if __name__ == "__main__":
