@@ -50,20 +50,20 @@
         "performance_metrics": {
             "effect_sizes": [
                 {
-                    "labels": [
-                        "Odds Ratio",
-                        "OR"
-                    ],
-                    "value": "1.53 [1.50, 1.56]"
+                    "name_long": "Odds Ratio",
+                    "name_short": "OR",
+                    "estimate": 1.53,
+                    "ci_lower": 1.50,
+                    "ci_upper": 1.56
                 }
             ],
             "class_acc": [
                 {
-                    "labels": [
-                        "Concordance Statistic",
-                        "C-index"
-                    ],
-                    "value": "0.522 [0.519, 0.527]"
+                    "name_long": "Concordance Statistic",
+                    "name_short": "C-index",
+                    "estimate": 0.522,
+                    "ci_lower": 0.519,
+                    "ci_upper": 0.527
                 }
             ],
             "othermetrics": []
@@ -122,11 +122,11 @@
         "performance_metrics": {
             "effect_sizes": [
                 {
-                    "labels": [
-                        "Odds Ratio",
-                        "OR"
-                    ],
-                    "value": "1.64 [1.6, 1.68]"
+                    "name_long": "Odds Ratio",
+                    "name_short": "OR",
+                    "estimate": 1.64,
+                    "ci_lower": 1.6,
+                    "ci_upper": 1.68
                 }
             ],
             "class_acc": [],
@@ -157,13 +157,21 @@
                     "sample_controls": 393315,
                     "sample_percent_male": 45.4,
                     "sample_age": {
-                        "mean": "54.3",
+                        "estimate_type": "mean",
+                        "estimate": 54.3,
+                        "interval": {
+                            "type": "range",
+                            "lower": 50.1,
+                            "upper": 58.4
+                        },
                         "unit": "years"
                     },
                     "phenotyping_free": "Prevalent and incident Ischaemic stroke",
                     "followup_time": {
-                        "mean": "6.2",
-                        "sd": 1.7,
+                        "estimate_type": "mean",
+                        "estimate": 6.2,
+                        "variability_type": "sd",
+                        "variability": 1.7,
                         "unit": "years"
                     },
                     "ancestry_broad": "European",
@@ -185,20 +193,20 @@
         "performance_metrics": {
             "effect_sizes": [
                 {
-                    "labels": [
-                        "Hazard Ratio",
-                        "HR"
-                    ],
-                    "value": "1.24 [1.20, 1.29]"
+                    "name_long": "Hazard Ratio",
+                    "name_short": "HR",
+                    "estimate": 1.24,
+                    "ci_lower": 1.20,
+                    "ci_upper": 1.29
                 }
             ],
             "class_acc": [
                 {
-                    "labels": [
-                        "Concordance Statistic",
-                        "C-index"
-                    ],
-                    "value": "0.581 [0.571, 0.592]"
+                    "name_long": "Concordance Statistic",
+                    "name_short": "C-index",
+                    "estimate": 0.581,
+                    "ci_lower": 0.571,
+                    "ci_upper": 0.592
                 }
             ],
             "othermetrics": []

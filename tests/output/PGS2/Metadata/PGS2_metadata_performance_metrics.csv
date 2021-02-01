@@ -1,2 +1,2 @@
 PGS Performance Metric (PPM) ID,Evaluated Score,PGS Sample Set (PSS),PGS Publication (PGP) ID,Reported Trait,Covariates Included in the Model,PGS Performance: Other Relevant Information,Publication (PMID),Publication (doi),Hazard Ratio (HR),Odds Ratio (OR),Beta,Area Under the Receiver-Operating Characteristic Curve (AUROC),Corcordance Statistic (C-index),Other Metric(s)
-PPM02,PGS2,PSS2,PGP1,ER-positive breast cancer,,,10000001,10.1010/test/test1,,"1.64 [1.6, 1.68]",,,,
+PPM02,PGS2,PSS2,PGP1,ER-positive breast cancer,,,10000001,10.1010/test/test1,,"1.64 [1.6,1.68]",,,,
