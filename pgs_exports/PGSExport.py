@@ -8,7 +8,7 @@ import hashlib
 #-----------------#
 
 class PGSExport:
-    """ Export each PGS metadata in different Excel file. """
+    ''' Export each PGS metadata in different Excel file. '''
 
     #---------------#
     # Configuration #
@@ -139,7 +139,7 @@ class PGSExport:
 
 
     def set_pgs_list(self, pgs_list):
-        """ List the PGS IDs used to generate the metadata files """
+        ''' List the PGS IDs used to generate the metadata files '''
         if isinstance(pgs_list, list):
             self.pgs_list = pgs_list
         else:
@@ -147,12 +147,12 @@ class PGSExport:
 
 
     def save(self):
-        """ Close the Pandas Excel writer and output the Excel file """
+        ''' Close the Pandas Excel writer and output the Excel file '''
         self.writer.save()
 
 
     def generate_sheets(self, csv_prefix):
-        """ Generate the differents sheets """
+        ''' Generate the differents sheets '''
 
         if (len(self.spreadsheets_conf.keys()) != len(self.spreadsheets_list)):
             print("Size discrepancies between the dictionary 'spreadsheets' and the list 'spreadsheets_ordering'.")
@@ -175,7 +175,7 @@ class PGSExport:
 
 
     def generate_sheet(self, data, sheet_name):
-        """ Generate the Pandas dataframe and insert it as a spreadsheet into to the Excel file """
+        ''' Generate the Pandas dataframe and insert it as a spreadsheet into to the Excel file '''
         try:
             # Create a Pandas dataframe.
             df = pd.DataFrame(data)
@@ -188,7 +188,7 @@ class PGSExport:
 
 
     def generate_csv(self, data, prefix, sheet_name):
-        """ Generate the Pandas dataframe and create a CSV file """
+        ''' Generate the Pandas dataframe and create a CSV file '''
         try:
             # Create a Pandas dataframe.
             df = pd.DataFrame(data)
@@ -203,13 +203,13 @@ class PGSExport:
 
 
     def generate_tarfile(self, output_filename, source_dir):
-        """ Generate a tar.gz file from a directory """
+        ''' Generate a tar.gz file from a directory '''
         with tarfile.open(output_filename, "w:gz") as tar:
             tar.add(source_dir, arcname=os.path.basename(source_dir))
 
 
     def get_column_labels(self, classname, exception_field=None, exception_classname=None):
-        """ Fetch the column labels from the Models """
+        ''' Fetch the column labels from the Models '''
         model_labels = {}
         for field in self.fields_to_include[classname]:
             field_name = field['name']
@@ -225,8 +225,15 @@ class PGSExport:
             return False
 
 
+    def cleanup_field_value(self,value):
+        ''' Remove trailing characters (including new line). '''
+        if isinstance(value, str):
+            value = value.strip().replace('\n',' ')
+        return value
+
+
     def create_md5_checksum(self, md5_filename='md5_checksum.txt', blocksize=4096):
-        """ Returns MD5 checksum for the generated file. """
+        ''' Returns MD5 checksum for the generated file. '''
 
         md5 = hashlib.md5()
         try:
@@ -252,7 +259,7 @@ class PGSExport:
     #---------------------#
 
     def create_scores_spreadsheet(self):
-        """ Score spreadsheet """
+        ''' Score spreadsheet '''
 
         # Fetch column labels an initialise data dictionary
         score_labels = self.get_column_labels('Score')
@@ -287,13 +294,13 @@ class PGSExport:
             # scores_data[score_labels['id']].append(score.id)
             for column in score_labels.keys():
                 if self.not_in_extra_fields_to_include(column):
-                    value = score[column]
+                    value = self.cleanup_field_value(score[column])
                     scores_data[score_labels[column]].append(value)
         return scores_data
 
 
     def create_performance_metrics_spreadsheet(self, pgs_list=[]):
-        """ Performance Metrics spreadsheet """
+        ''' Performance Metrics spreadsheet '''
 
         metrics_header = self.metrics_header
         metrics_type = self.metrics_type
@@ -374,13 +381,13 @@ class PGSExport:
             # Load the data into the dictionnary
             for column in perf_labels.keys():
                 if self.not_in_extra_fields_to_include(column):
-                    value = perf[column]
+                    value = self.cleanup_field_value(perf[column])
                     perf_data[perf_labels[column]].append(value)
         return perf_data
 
 
     def create_samplesets_spreadsheet(self, pgs_list=[]):
-        """ Sample Sets spreadsheet """
+        ''' Sample Sets spreadsheet '''
 
         # Fetch column labels an initialise data dictionary
         object_labels = self.get_column_labels('SampleSet')
@@ -447,19 +454,19 @@ class PGSExport:
                                         sample_value += ';'
                                     sample_value += 'unit:{}'.format(demographic['unit'])
                         else:
-                            sample_value = sample[sample_column]
+                            sample_value = self.cleanup_field_value(sample[sample_column])
                         object_data[sample_object_labels[sample_column]].append(sample_value)
 
                 for column in object_labels.keys():
                     if self.not_in_extra_fields_to_include(column):
-                        value = pss[column]
+                        value = self.cleanup_field_value(pss[column])
                         object_data[object_labels[column]].append(value)
         return object_data
 
 
 
     def create_samples_development_spreadsheet(self):
-        """ Samples used for score development (GWAS and/or training) spreadsheet """
+        ''' Samples used for score development (GWAS and/or training) spreadsheet '''
 
         # Fetch column labels an initialise data dictionary
         object_labels = self.get_column_labels('Sample')
@@ -489,7 +496,7 @@ class PGSExport:
 
                         for column in object_labels.keys():
                             if self.not_in_extra_fields_to_include(column):
-                                value = sample[column]
+                                value = self.cleanup_field_value(sample[column])
                                 object_data[object_labels[column]].append(value)
 
                         object_data[object_labels['cohorts_list']].append(', '.join([c['name_short'] for c in sample['cohorts']]))
@@ -498,7 +505,7 @@ class PGSExport:
 
 
     def create_publications_spreadsheet(self):
-        """ Publications spreadsheet """
+        ''' Publications spreadsheet '''
 
         # Fetch column labels an initialise data dictionary
         object_labels = self.get_column_labels('Publication')
@@ -527,13 +534,13 @@ class PGSExport:
         for publi in publications:
             for column in object_labels.keys():
                 if self.not_in_extra_fields_to_include(column):
-                    value = publi[column]
+                    value = self.cleanup_field_value(publi[column])
                     object_data[object_labels[column]].append(value)
         return object_data
 
 
     def create_efo_traits_spreadsheet(self):
-        """ EFO traits spreadsheet """
+        ''' EFO traits spreadsheet '''
 
         # Fetch column labels an initialise data dictionary
         object_labels = self.get_column_labels('EFOTrait')
@@ -556,7 +563,7 @@ class PGSExport:
         for trait in traits:
             for column in object_labels.keys():
                 if self.not_in_extra_fields_to_include(column):
-                    value = trait[column]
+                    value = self.cleanup_field_value(trait[column])
                     object_data[object_labels[column]].append(value)
         return object_data
 
@@ -568,10 +575,10 @@ class PGSExport:
 #----------------------------#
 
 class PGSExportAllMetadata(PGSExport):
-    """ Export all the PGS metadata in a unique Excel file. """
+    ''' Export all the PGS metadata in a unique Excel file. '''
 
     def create_readme_spreadsheet(self, release):
-        """ Info/readme spreadsheet """
+        ''' Info/readme spreadsheet '''
 
         readme_data = {}
 
