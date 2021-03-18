@@ -228,7 +228,7 @@ class PGSExport:
     def cleanup_field_value(self,value):
         ''' Remove trailing characters (including new line). '''
         if isinstance(value, str):
-            value = value.strip().replace('\n',' ')
+            value = value.strip().replace('\n',' ').replace('\t',' ')
         return value
 
 
