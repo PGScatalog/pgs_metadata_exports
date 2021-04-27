@@ -4,14 +4,14 @@
         "name": "PRS1",
         "ftp_scoring_file": "http://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/PGS1/ScoringFiles/PGS1.txt.gz",
         "publication": {
-        "id": "PGP1",
-        "title": "Test publication 1.",
-        "doi": "10.1010/test/test1",
-        "PMID": 10000001,
-        "journal": "Test Journal",
-        "firstauthor": "First T",
-        "date_publication": "2020-12-01"
-    },
+            "id": "PGP1",
+            "title": "Test publication 1.",
+            "doi": "10.1010/test/test1",
+            "PMID": 10000001,
+            "journal": "Test Journal",
+            "firstauthor": "First T",
+            "date_publication": "2020-12-01"
+        },
         "matches_publication": true,
         "samples_variants": [
             {
@@ -48,6 +48,24 @@
         "variants_number": 100,
         "variants_interactions": 0,
         "variants_genomebuild": "NR",
+        "ancestries": {
+            "dev": {
+                "dist": {
+                    "EUR": 100
+                }
+            },
+            "eval": {
+                "dist": {
+                    "EUR": 66.7,
+                    "MAE": 33.3
+                }
+            },
+            "gwas": {
+                "dist": {
+                    "MAE": 100
+                }
+            }
+        },
         "license": "PGS obtained from the Catalog should be cited appropriately, and used in accordance with any licensing restrictions set by the authors. See EBI Terms of Use (https://www.ebi.ac.uk/about/terms-of-use/) for additional details."
     },
     {
@@ -99,6 +117,18 @@
         "variants_number": 100,
         "variants_interactions": 0,
         "variants_genomebuild": "NR",
+        "ancestries": {
+            "eval": {
+                "dist": {
+                    "EUR": 100
+                }
+            },
+            "gwas": {
+                "dist": {
+                    "EUR": 100
+                }
+            }
+        },
         "license": "PGS obtained from the Catalog should be cited appropriately, and used in accordance with any licensing restrictions set by the authors. See EBI Terms of Use (https://www.ebi.ac.uk/about/terms-of-use/) for additional details."
     },
     {
@@ -196,6 +226,33 @@
         "variants_number": 3200000,
         "variants_interactions": 0,
         "variants_genomebuild": "hg19",
+        "ancestry_distribution": {
+            "dev": {
+                "dist": {
+                    "EUR": 100
+                }
+            },
+            "eval": {
+                "dist": {
+                    "AFR": 12.5,
+                    "AMR": 12.5,
+                    "ASN": 2.5,
+                    "EAS": 20,
+                    "EUR": 42.5,
+                    "SAS": 10
+                }
+            },
+            "gwas": {
+                "dist": {
+                    "AFR": 1.7,
+                    "AMR": 2.2,
+                    "EAS": 6,
+                    "EUR": 75.3,
+                    "GME": 1.2,
+                    "SAS": 13.6
+                }
+            }
+        },
         "license": "PGS obtained from the Catalog should be cited appropriately, and used in accordance with any licensing restrictions set by the authors. See EBI Terms of Use (https://www.ebi.ac.uk/about/terms-of-use/) for additional details."
     }
 ]

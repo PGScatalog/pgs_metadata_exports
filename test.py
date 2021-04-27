@@ -18,6 +18,20 @@ class TestSum(unittest.TestCase):
         'score_development_samples',
         'scores'
     ]
+
+    ancestry_categories = {
+        "MAE": "Multi-ancestry (including European)",
+        "MAO": "Multi-ancestry (excluding European)",
+        "AFR": "African",
+        "EAS": "East Asian",
+        "SAS": "South Asian",
+        "ASN": "Additional Asian Ancestries",
+        "EUR": "European",
+        "GME": "Greater Middle Eastern",
+        "AMR": "Hispanic or Latin American",
+        "OTH": "Additional Diverse Ancestries",
+        "NR": "Not Reported"
+    }
     
     export_dir = current_dir+'/tests/export/'
     scores_list_file = export_dir+'pgs_scores_list.txt'
@@ -49,7 +63,7 @@ class TestSum(unittest.TestCase):
         # Get the list of published PGS IDs
         self.score_ids_list = [ x['id'] for x in self.data['score'] ]
 
-        exports_generator = PGSExportGenerator(self.export_dir,self.data,self.scores_list_file,self.score_ids_list,self.current_release_date,self.debug)
+        exports_generator = PGSExportGenerator(self.export_dir,self.data,self.scores_list_file,self.score_ids_list,self.current_release_date,self.ancestry_categories,self.debug)
 
         # Generate file listing all the released Scores
         exports_generator.generate_scores_list_file()

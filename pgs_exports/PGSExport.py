@@ -62,6 +62,9 @@ class PGSExport:
                 {'name': 'pub_pmid_label', 'label': 'Publication (PMID)'},
                 {'name': 'pub_doi_label', 'label': 'Publication (doi)'},
                 {'name': 'matches_publication', 'label': 'Score and results match the original publication'},
+                {'name': 'ancestry_gwas', 'label': 'Ancestry Distribution (%) - Source of Variant Associations (GWAS)'},
+                {'name': 'ancestry_dev', 'label': 'Ancestry Distribution (%) - Score Development/Training'},
+                {'name': 'ancestry_eval', 'label': 'Ancestry Distribution (%) - PGS Evaluation'},
                 {'name': 'ftp_scoring_file', 'label': 'FTP link'},
                 {'name': 'license', 'label': 'License/Terms of Use'}
             ],
@@ -99,7 +102,10 @@ class PGSExport:
         'sampleset_id',
         'study_stage',
         'trait_id',
-        'trait_label'
+        'trait_label',
+        'ancestry_gwas',
+        'ancestry_dev',
+        'ancestry_eval'
     ]
 
     # Metrics
@@ -115,14 +121,18 @@ class PGSExport:
         other_metric_key: other_metric_label
     }
 
+    # Data separator
+    separator = '|'
+
 
     #-----------------#
     # General methods #
     #-----------------#
 
-    def __init__(self,filename, data):
+    def __init__(self, filename, data, ancestry_categories):
         self.filename = filename
         self.data = data
+        self.ancestry_categories = ancestry_categories
         self.pgs_list = []
         self.writer = pd.ExcelWriter(filename, engine='xlsxwriter')
         self.spreadsheets_conf = {
@@ -274,18 +284,32 @@ class PGSExport:
             scores = [ s for s in self.data['score'] if s['id'] in self.pgs_list ]
 
         for score in scores:
+            
             # Publication
             scores_data[score_labels['pub_id']].append(score['publication']['id'])
             scores_data[score_labels['pub_pmid_label']].append(score['publication']['PMID'])
             scores_data[score_labels['pub_doi_label']].append(score['publication']['doi'])
+            
             # Mapped Traits
             trait_labels = []
             trait_ids = []
             for trait in score['trait_efo']:
                 trait_labels.append(trait['label'])
                 trait_ids.append(trait['id'])
-            scores_data[score_labels['trait_label']].append(', '.join(trait_labels))
-            scores_data[score_labels['trait_id']].append(', '.join(trait_ids))
+            scores_data[score_labels['trait_label']].append(self.separator.join(trait_labels))
+            scores_data[score_labels['trait_id']].append(self.separator.join(trait_ids))
+            
+            # Ancestries
+            ancestries = score['ancestry_distribution']
+            for stage in ('gwas','dev','eval'):
+                ancestry_data = ''
+                if stage in ancestries:
+                    ancestry_datalist = []
+                    for anc,val in sorted(ancestries[stage]['dist'].items(), key=lambda item: float(item[1]), reverse=True):
+                        label = self.ancestry_categories[anc]
+                        ancestry_datalist.append(f'{label}:{val}')
+                    ancestry_data = self.separator.join(ancestry_datalist)
+                scores_data[score_labels[f'ancestry_{stage}']].append(ancestry_data)
 
             # Load the data into the dictionnary
             # e.g. column is "id":
@@ -428,7 +452,7 @@ class PGSExport:
             pss = samplesets[pss_id]
             for sample in pss['samples']:
                 object_data[sample_object_labels['associated_score']].append(scores)
-                object_data[sample_object_labels['cohorts_list']].append(', '.join([c['name_short'] for c in sample['cohorts']]))
+                object_data[sample_object_labels['cohorts_list']].append(self.separator.join([c['name_short'] for c in sample['cohorts']]))
 
                 for sample_column in sample_object_labels.keys():
                     if self.not_in_extra_fields_to_include(sample_column):
@@ -499,7 +523,7 @@ class PGSExport:
                                 value = self.cleanup_field_value(sample[column])
                                 object_data[object_labels[column]].append(value)
 
-                        object_data[object_labels['cohorts_list']].append(', '.join([c['name_short'] for c in sample['cohorts']]))
+                        object_data[object_labels['cohorts_list']].append(self.separator.join([c['name_short'] for c in sample['cohorts']]))
 
         return object_data
 

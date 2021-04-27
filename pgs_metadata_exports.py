@@ -102,6 +102,22 @@ def get_previous_release(url_root):
     return release
 
 
+def get_ancestry_categories(url_root):
+    """
+    Fetch the list of ancestry categories
+    > Parameter:
+        - url_root: Root of the REST API URL
+    > Return type: dictionary
+    """
+    data = ''
+    ancestry_data = rest_api_call(url_root, 'ancestry_categories')
+    if ancestry_data:
+        data = ancestry_data
+    else:
+        print('\t/!\ Error: cannot retrieve the list of ancestry categories')
+    return data
+
+
 def create_pgs_directory(path, force_recreate=None):
     """
     Creates directory for a given PGS
@@ -219,7 +235,10 @@ def main():
     current_release = get_latest_release(rest_url_root)
     current_release_date = current_release['date']
     previous_release_date = get_previous_release(rest_url_root)['date']
- 
+
+    # Fetch the list of ancestry categories
+    print('\t- Fetch ancestry categories')
+    ancestry_categories = get_ancestry_categories(rest_url_root)
 
     # Setup path to some of the extra export files
     scores_list_file = new_ftp_dir+'/pgs_scores_list.txt'
@@ -232,7 +251,7 @@ def main():
     # Get the list of published PGS IDs
     score_ids_list = [ x['id'] for x in data['score'] ]
 
-    exports_generator = PGSExportGenerator(export_dir,data,scores_list_file,score_ids_list,current_release_date,debug)
+    exports_generator = PGSExportGenerator(export_dir,data,scores_list_file,score_ids_list,current_release_date,ancestry_categories,debug)
 
     # Generate file listing all the released Scores
     exports_generator.generate_scores_list_file()
