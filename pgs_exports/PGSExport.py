@@ -300,7 +300,7 @@ class PGSExport:
             scores_data[score_labels['trait_id']].append(self.separator.join(trait_ids))
             
             # Ancestries
-            ancestries = score['ancestries']
+            ancestries = score['ancestry_distribution']
             for stage in ('gwas','dev','eval'):
                 ancestry_data = ''
                 if stage in ancestries:

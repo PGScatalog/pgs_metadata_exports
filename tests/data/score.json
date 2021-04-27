@@ -226,7 +226,7 @@
         "variants_number": 3200000,
         "variants_interactions": 0,
         "variants_genomebuild": "hg19",
-        "ancestries": {
+        "ancestry_distribution": {
             "dev": {
                 "dist": {
                     "EUR": 100
