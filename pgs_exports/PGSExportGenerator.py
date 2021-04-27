@@ -8,7 +8,7 @@ from pgs_exports.PGSExport import PGSExport, PGSExportAllMetadata
 class PGSExportGenerator:
     """ Generates the different PGS exports. """
 
-    def __init__(self,dirpath,data,scores_file,score_ids_list,latest_release,debug):
+    def __init__(self,dirpath,data,scores_file,score_ids_list,latest_release,ancestry_categories,debug):
         """
         > Variables:
             - dirpath: path to the directory where the metadata files will be stored
@@ -16,14 +16,15 @@ class PGSExportGenerator:
             - scores_file: path to the file where we want to write the list of PGS IDs
             - score_ids_list: list of the PGS IDs
             - latest_release: date of the latest (i.e. new) release
+            - ancestry_categories: list of the ancestry categories defined in the Catalog
             - debug: parameter to test the script (default:0 => non debug mode)
-            - scores_file: path to the file where we want to write the list of PGS IDs
         """
         self.dirpath = dirpath
         self.data = data
         self.scores_file = scores_file 
         self.score_ids_list = score_ids_list
         self.latest_release = latest_release
+        self.ancestry_categories = ancestry_categories
         self.debug = debug
 
 
@@ -57,7 +58,7 @@ class PGSExportGenerator:
             exit(1)
 
         # Create export object
-        pgs_export = PGSExportAllMetadata(filename, self.data)
+        pgs_export = PGSExportAllMetadata(filename, self.data, self.ancestry_categories)
 
         if self.debug:
             pgs_ids_list = []
@@ -126,7 +127,7 @@ class PGSExportGenerator:
             print("FILENAME: "+filename)
 
             # Create export object
-            pgs_export = PGSExport(filename, self.data)
+            pgs_export = PGSExport(filename, self.data, self.ancestry_categories)
             pgs_export.set_pgs_list([pgs_id])
 
             # Build the spreadsheets
