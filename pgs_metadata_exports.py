@@ -266,7 +266,6 @@ def main():
     #------------------------#
     # Generate FTP structure #
     #------------------------#
-    exit(0)
     ftp_generator = PGSFtpGenerator(export_dir,new_ftp_dir,score_ids_list,previous_release_date,use_remote_ftp,debug)
 
     # Build FTP structure for metadata files
