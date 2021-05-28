@@ -159,10 +159,11 @@ class PGSExport:
         }
 
         # Force data type in some columns
+        # 'Int64' works better than "int" because it doesn't break if a non numeric value is found (e.g. missing PMID)
         self.spreadsheets_column_types = {
-           'publications': { "PubMed ID (PMID)": int },
-           'scores': { "Publication (PMID)": int },
-           'perf': { "Publication (PMID)": int }
+           'publications': { "PubMed ID (PMID)": 'Int64' },
+           'scores': { "Publication (PMID)": 'Int64' },
+           'perf': { "Publication (PMID)": 'Int64' }
         }
 
 
@@ -197,8 +198,8 @@ class PGSExport:
                 print("Spreadsheet '"+spreadsheet_label+"' done")
                 self.generate_csv(data, csv_prefix, spreadsheet_name, spreadsheet_label)
                 print("CSV '"+spreadsheet_label+"' done")
-            except:
-                print("Issue to generate the spreadsheet '"+spreadsheet_label+"'")
+            except Exception as e:
+                print(f'Issue to generate the spreadsheet "{spreadsheet_label}"\n> {e}')
                 exit()
 
 
@@ -211,8 +212,8 @@ class PGSExport:
             df.to_excel(self.writer, index=False, sheet_name=sheet_label)
         except NameError:
             print("Spreadsheet generation: At least one of the variables is not defined")
-        except:
-            print("Spreadsheet generation: There is an issue with the data of the spreadsheet '"+str(sheet_label)+"'")
+        except Exception as e:
+            print(f'Spreadsheet generation: There is an issue with the data of the spreadsheet "{sheet_label}"\n> {e}')
 
 
     def generate_csv(self, data, prefix, sheet_name, sheet_label):
@@ -220,7 +221,6 @@ class PGSExport:
         try:
             # Create a Pandas dataframe.
             df = pd.DataFrame(data)
-            cols = df.columns.tolist()
             # Force data type (e.g. issue with float for PubMed ID)
             if sheet_name in self.spreadsheets_column_types:
                 df = df.astype(self.spreadsheets_column_types[sheet_name])
@@ -230,8 +230,8 @@ class PGSExport:
             df.to_csv(csv_filename, index=False)
         except NameError:
             print("CSV generation: At least one of the variables is not defined")
-        except:
-            print("CSV generation: There is an issue with the data of the type '"+str(sheet_label)+"'")
+        except Exception as e:
+            print(f'CSV generation: There is an issue with the data of the type "{sheet_label}"\n> {e}')
 
 
     def generate_tarfile(self, output_filename, source_dir):
