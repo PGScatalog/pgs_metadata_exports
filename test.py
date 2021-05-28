@@ -16,7 +16,8 @@ class TestSum(unittest.TestCase):
         'performance_metrics', 
         'publications',
         'score_development_samples',
-        'scores'
+        'scores',
+        'cohorts'
     ]
 
     ancestry_categories = {
@@ -45,7 +46,7 @@ class TestSum(unittest.TestCase):
 
     def get_all_data(self):
         self.data = {}
-        for type in ['score', 'trait', 'publication', 'performance']:
+        for type in ['score', 'trait', 'publication', 'performance', 'cohort']:
             json_file_path = self.input_data_dir+'/'+type+'.json'
             if not os.path.isfile(json_file_path):
                 print(f'Error: can\'t find the file {json_file_path}')

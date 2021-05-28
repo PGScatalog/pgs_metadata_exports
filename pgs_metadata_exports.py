@@ -54,7 +54,7 @@ def get_all_pgs_data(url_root):
     > Return type: dictionary
     """
     data = {}
-    for type in ['score', 'trait', 'publication', 'performance']:
+    for type in ['score', 'trait', 'publication', 'performance', 'cohort']:
         print(f'\t- Fetch all {type}s')
         tmp_data = rest_api_call(url_root, f'{type}/all')
         if tmp_data:
@@ -195,7 +195,7 @@ def check_new_data_entry_in_metadata(dirpath_new,data,release_data):
 
 def main():
 
-    debug = 0
+    debug = 10
     tmp_export_dir_name = 'export'
     tmp_ftp_dir_name = 'new_ftp_content'
 
@@ -266,7 +266,7 @@ def main():
     #------------------------#
     # Generate FTP structure #
     #------------------------#
-
+    exit(0)
     ftp_generator = PGSFtpGenerator(export_dir,new_ftp_dir,score_ids_list,previous_release_date,use_remote_ftp,debug)
 
     # Build FTP structure for metadata files

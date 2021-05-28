@@ -15,6 +15,11 @@ class PGSExport:
     #---------------#
 
     fields_to_include = {
+        'Cohort':
+            [
+                 {'name': 'name_short', 'label': 'Cohort ID'},
+                 {'name': 'name_full', 'label': 'Cohort Name'}
+            ],
         'EFOTrait':
             [
                 {'name': 'id', 'label': 'Ontology Trait ID'},
@@ -135,17 +140,30 @@ class PGSExport:
         self.ancestry_categories = ancestry_categories
         self.pgs_list = []
         self.writer = pd.ExcelWriter(filename, engine='xlsxwriter')
+
+        # Order of the spreadsheets
+        self.spreadsheets_list = [
+            'publications', 'efo_traits', 'scores', 'cohorts',
+            'samples_development', 'perf', 'samplesets'
+        ]
+
+        # Spreadsheets content creation
         self.spreadsheets_conf = {
             'scores'     : ('Scores', self.create_scores_spreadsheet),
             'perf'       : ('Performance Metrics', self.create_performance_metrics_spreadsheet),
             'samplesets' : ('Evaluation Sample Sets', self.create_samplesets_spreadsheet),
             'samples_development': ('Score Development Samples', self.create_samples_development_spreadsheet),
             'publications': ('Publications', self.create_publications_spreadsheet),
-            'efo_traits': ('EFO Traits', self.create_efo_traits_spreadsheet)
+            'efo_traits' : ('EFO Traits', self.create_efo_traits_spreadsheet),
+            'cohorts'    : ('Cohorts', self.create_cohorts_spreadsheet)
         }
-        self.spreadsheets_list = [
-            'scores', 'perf', 'samplesets', 'samples_development', 'publications', 'efo_traits'
-        ]
+
+        # Force data type in some columns
+        self.spreadsheets_column_types = {
+           'publications': { "PubMed ID (PMID)": int },
+           'scores': { "Publication (PMID)": int },
+           'perf': { "Publication (PMID)": int }
+        }
 
 
     def set_pgs_list(self, pgs_list):
@@ -177,39 +195,43 @@ class PGSExport:
                 data = self.spreadsheets_conf[spreadsheet_name][1]()
                 self.generate_sheet(data, spreadsheet_label)
                 print("Spreadsheet '"+spreadsheet_label+"' done")
-                self.generate_csv(data, csv_prefix, spreadsheet_label)
+                self.generate_csv(data, csv_prefix, spreadsheet_name, spreadsheet_label)
                 print("CSV '"+spreadsheet_label+"' done")
             except:
                 print("Issue to generate the spreadsheet '"+spreadsheet_label+"'")
                 exit()
 
 
-    def generate_sheet(self, data, sheet_name):
+    def generate_sheet(self, data, sheet_label):
         ''' Generate the Pandas dataframe and insert it as a spreadsheet into to the Excel file '''
         try:
             # Create a Pandas dataframe.
             df = pd.DataFrame(data)
             # Convert the dataframe to an XlsxWriter Excel object.
-            df.to_excel(self.writer, index=False, sheet_name=sheet_name)
+            df.to_excel(self.writer, index=False, sheet_name=sheet_label)
         except NameError:
             print("Spreadsheet generation: At least one of the variables is not defined")
         except:
-            print("Spreadsheet generation: There is an issue with the data of the spreadsheet '"+str(sheet_name)+"'")
+            print("Spreadsheet generation: There is an issue with the data of the spreadsheet '"+str(sheet_label)+"'")
 
 
-    def generate_csv(self, data, prefix, sheet_name):
+    def generate_csv(self, data, prefix, sheet_name, sheet_label):
         ''' Generate the Pandas dataframe and create a CSV file '''
         try:
             # Create a Pandas dataframe.
             df = pd.DataFrame(data)
+            cols = df.columns.tolist()
+            # Force data type (e.g. issue with float for PubMed ID)
+            if sheet_name in self.spreadsheets_column_types:
+                df = df.astype(self.spreadsheets_column_types[sheet_name])
             # Convert the dataframe to an XlsxWriter Excel object.
-            sheet_name = sheet_name.lower().replace(' ', '_')
-            csv_filename = prefix+"_metadata_"+sheet_name+".csv"
+            sheet_label = sheet_label.lower().replace(' ', '_')
+            csv_filename = prefix+"_metadata_"+sheet_label+".csv"
             df.to_csv(csv_filename, index=False)
         except NameError:
             print("CSV generation: At least one of the variables is not defined")
         except:
-            print("CSV generation: There is an issue with the data of the type '"+str(sheet_name)+"'")
+            print("CSV generation: There is an issue with the data of the type '"+str(sheet_label)+"'")
 
 
     def generate_tarfile(self, output_filename, source_dir):
@@ -286,9 +308,10 @@ class PGSExport:
         for score in scores:
             
             # Publication
-            scores_data[score_labels['pub_id']].append(score['publication']['id'])
-            scores_data[score_labels['pub_pmid_label']].append(score['publication']['PMID'])
-            scores_data[score_labels['pub_doi_label']].append(score['publication']['doi'])
+            publication = score['publication']
+            scores_data[score_labels['pub_id']].append(publication['id'])
+            scores_data[score_labels['pub_pmid_label']].append(publication['PMID'])
+            scores_data[score_labels['pub_doi_label']].append(publication['doi'])
             
             # Mapped Traits
             trait_labels = []
@@ -505,13 +528,13 @@ class PGSExport:
             scores = [ s for s in self.data['score'] if s['id'] in self.pgs_list ]
 
         #Loop through Scores to output their samples:
+        score_studies = [
+            ('samples_variants', 'Source of Variant Associations (GWAS)'),
+            ('samples_training', 'Score Development/Training')
+        ]
         for score in scores:
-            for study_stage, stage_name in [('samples_variants', 'Source of Variant Associations (GWAS)'),
-                                            ('samples_training','Score Development/Training')]:
-                if study_stage == 'samples_variants':
-                    samples = score['samples_variants']
-                elif study_stage == 'samples_training':
-                    samples = score['samples_training']
+            for study_stage, stage_name in score_studies:
+                samples = score[study_stage]
 
                 if len(samples) > 0:
                     for sample in samples:
@@ -592,6 +615,46 @@ class PGSExport:
         return object_data
 
 
+    def create_cohorts_spreadsheet(self):
+        ''' Cohorts spreadsheet '''
+
+        # Fetch column labels an initialise data dictionary
+        object_labels = self.get_column_labels('Cohort')
+        object_data = {}
+        for label in list(object_labels.values()):
+            object_data[label] = []
+
+        cohorts = []
+        if len(self.pgs_list) == 0:
+            cohorts = self.data['cohort']
+        else:
+            scores = [ s for s in self.data['score'] if s['id'] in self.pgs_list ]
+            tmp_cohort_ids = set()
+            for score in scores:
+                # Development cohorts
+                for sample in ('samples_variants', 'samples_training'):
+                    score_samples = score[sample]
+                    for score_sample in score_samples:
+                        for s_cohort in score_sample['cohorts']:
+                            tmp_cohort_ids.add(s_cohort['name_short'])
+                # Evaluation cohorts (via Performance Metrics and Sample Sets)
+                performances = [ p for p in self.data['performance'] if p['associated_pgs_id'] == score['id'] ]
+                samplesets = {}
+                score_samplesets = {}
+                for perf in performances:
+                    sampleset = perf['sampleset']
+                    for sample in sampleset['samples']:
+                        for s_cohort in sample['cohorts']:
+                            tmp_cohort_ids.add(s_cohort['name_short'])
+
+                cohorts = [ x for x in self.data['cohort'] if x['name_short'] in tmp_cohort_ids ]
+
+        for cohort in cohorts:
+            for column in object_labels.keys():
+                if self.not_in_extra_fields_to_include(column):
+                    value = self.cleanup_field_value(cohort[column])
+                    object_data[object_labels[column]].append(value)
+        return object_data
 
 
 #----------------------------#

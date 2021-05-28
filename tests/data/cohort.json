@@ -1,0 +1,22 @@
+[
+    {
+        "name_short": "ABC",
+        "name_full": "Cohort ABC"
+    },
+    {
+        "name_short": "DEF",
+        "name_full": "Cohort DEF"
+    },
+    {
+        "name_short": "GHIJ",
+        "name_full": "Cohort GHIJ"
+    },
+    {
+        "name_short": "KLMN",
+        "name_full": "Cohort KLMN"
+    },
+    {
+        "name_short": "UKB",
+        "name_full": "UK Biobank"
+    }
+]

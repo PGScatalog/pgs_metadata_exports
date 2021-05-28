@@ -183,7 +183,7 @@
                     "cohorts": [
                         {
                             "name_short": "UKB",
-                            "name_full": "UK Biobank "
+                            "name_full": "UK Biobank"
                         }
                     ],
                     "cohorts_additional": "Validation set"
