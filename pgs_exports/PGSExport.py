@@ -143,8 +143,8 @@ class PGSExport:
 
         # Order of the spreadsheets
         self.spreadsheets_list = [
-            'publications', 'efo_traits', 'scores', 'cohorts',
-            'samples_development', 'perf', 'samplesets'
+            'publications', 'efo_traits', 'scores',
+            'samples_development', 'perf', 'samplesets', 'cohorts'
         ]
 
         # Spreadsheets content creation
