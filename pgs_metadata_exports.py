@@ -195,7 +195,7 @@ def check_new_data_entry_in_metadata(dirpath_new,data,release_data):
 
 def main():
 
-    debug = 10
+    debug = 0
     tmp_export_dir_name = 'export'
     tmp_ftp_dir_name = 'new_ftp_content'
 
