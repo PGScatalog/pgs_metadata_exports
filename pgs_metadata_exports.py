@@ -109,10 +109,11 @@ def get_ancestry_categories(url_root):
         - url_root: Root of the REST API URL
     > Return type: dictionary
     """
-    data = ''
+    data = {}
     ancestry_data = rest_api_call(url_root, 'ancestry_categories')
     if ancestry_data:
-        data = ancestry_data
+        for anc in ancestry_data:
+            data[anc] = ancestry_data[anc]['display_category']
     else:
         print('\t/!\ Error: cannot retrieve the list of ancestry categories')
     return data
