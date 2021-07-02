@@ -43,7 +43,8 @@ class PGSExport:
                 {'name': 'phenotyping_free', 'label': 'Phenotype Definitions and Methods'},
                 {'name': 'followup_time', 'label': 'Followup Time'},
                 {'name': 'source_GWAS_catalog', 'label': 'GWAS Catalog Study ID (GCST...)'},
-                {'name': 'source_PMID', 'label': 'Source PubMed ID (PMID) or doi'},
+                {'name': 'source_PMID', 'label': 'Source PubMed ID (PMID)'},
+                {'name': 'source_DOI', 'label': 'Source DOI'},
                 {'name': 'cohorts_list', 'label': 'Cohort(s)'},
                 {'name': 'cohorts_additional', 'label': 'Additional Sample/Cohort Information'}
             ],

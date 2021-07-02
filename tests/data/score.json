@@ -27,7 +27,8 @@
                 "ancestry_country": "Finland, Sweden, U.S., Australia, Netherlands, Germany, U.K.",
                 "ancestry_additional": null,
                 "source_GWAS_catalog": "GCST1",
-                "source_PMID": "10000011",
+                "source_PMID": 10000011,
+                "source_DOI": null,
                 "cohorts": [ ],
                 "cohorts_additional": null
             }
@@ -96,7 +97,8 @@
                 "ancestry_country": "Finland, Sweden, U.S., Australia, Netherlands, Germany, U.K.",
                 "ancestry_additional": null,
                 "source_GWAS_catalog": "GCST1",
-                "source_PMID": "10000011",
+                "source_PMID": 10000011,
+                "source_DOI": null,
                 "cohorts": [ ],
                 "cohorts_additional": null
             }
@@ -159,7 +161,8 @@
                 "ancestry_country": "Canada, U.S., Australia, Austria, Belgium, France, Germany, Netherlands, Switzerland, Poland, Denmark, Finland, Iceland, Norway, Sweden, U.K., Italy, Spain, NR",
                 "ancestry_additional": null,
                 "source_GWAS_catalog": "GCST2",
-                "source_PMID": "10000012",
+                "source_PMID": 10000012,
+                "source_DOI": null,
                 "cohorts": [ ],
                 "cohorts_additional": "name: IS"
             },
@@ -176,7 +179,8 @@
                 "ancestry_country": "Canada, U.S., Australia, Austria, Belgium, France, Germany, Netherlands, Switzerland, Poland, Denmark, Finland, Iceland, Sweden, U.K., Italy, Spain, NR",
                 "ancestry_additional": null,
                 "source_GWAS_catalog": "GCST3",
-                "source_PMID": "10000013",
+                "source_PMID": 10000013,
+                "source_DOI": null,
                 "cohorts": [ ],
                 "cohorts_additional": "name: AS"
             }
@@ -196,6 +200,7 @@
                 "ancestry_additional": null,
                 "source_GWAS_catalog": null,
                 "source_PMID": null,
+                "source_DOI": null,
                 "cohorts": [
                     {
                         "name_short": "UKB",
