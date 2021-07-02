@@ -164,9 +164,9 @@ class PGSExport:
         self.spreadsheets_column_types = {
            'publications': { "PubMed ID (PMID)": 'Int64' },
            'scores': { "Publication (PMID)": 'Int64' },
-           'perf': { "Publication (PMID)": 'Int64' }
+           'perf': { "Publication (PMID)": 'Int64' },
+           'samples_development': { "Source PubMed ID (PMID)": 'Int64' }
         }
-
 
     def set_pgs_list(self, pgs_list):
         ''' List the PGS IDs used to generate the metadata files '''
