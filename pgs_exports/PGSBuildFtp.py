@@ -12,11 +12,12 @@ class PGSBuildFtp:
     """ Fetch files from FTP and compare them with the newly generated files. """
 
     ftp_path = '/ebi/ftp/pub/databases/spot/pgs/'
-    allowed_types = ['score','metadata']
+    allowed_types = ['score','metadata','publication']
     all_meta_file = 'pgs_all_metadata.tar.gz'
     data_dir = '/scores/'
     scoring_dir = '/ScoringFiles/'
     meta_dir    = '/Metadata/'
+    pub_dir     = meta_dir.lower()+'publication/'
     meta_file_extension = '.tar.gz'
 
 
@@ -40,6 +41,9 @@ class PGSBuildFtp:
                 path += self.meta_dir.lower()
             else:
                 path += self.data_dir+self.pgs_id+self.meta_dir
+        # Publication metadata file
+        elif self.type == 'publication':
+            path += self.pub_dir+self.pgs_id+'/'
         # Score file
         else:
             path += self.data_dir+self.pgs_id+'/'+self.scoring_dir
@@ -55,6 +59,8 @@ class PGSBuildFtp:
         filepath = self.ftp_path+self.data_dir+self.pgs_id+'/'
         if self.type == 'metadata':
             filepath += self.meta_dir+self.pgs_id+self.file_suffix
+        elif self.type == 'publication':
+            filepath = self.ftp_path+self.pub_dir+self.pgs_id+'/'+self.pgs_id+self.file_suffix
         else:
             filepath += self.scoring_dir+self.pgs_id+self.file_suffix
 
@@ -107,6 +113,9 @@ class PGSBuildFtpRemote(PGSBuildFtp):
                 path += self.meta_dir.lower()
             else:
                 path += self.data_dir+self.pgs_id+self.meta_dir
+        # Publication metadata file
+        elif self.type == 'publication':
+            path += self.pub_dir+self.pgs_id+'/'
         # Score file
         else:
             path += self.data_dir+self.pgs_id+'/'+self.scoring_dir
@@ -128,6 +137,8 @@ class PGSBuildFtpRemote(PGSBuildFtp):
         filepath = self.ftp_path+self.data_dir+self.pgs_id+'/'
         if self.type == 'metadata':
             filepath += self.meta_dir+self.pgs_id+self.file_suffix
+        elif self.type == 'publication':
+            filepath = self.ftp_path+self.pub_dir+self.pgs_id+'/'+self.pgs_id+self.file_suffix
         else:
             filepath += self.scoring_dir+self.pgs_id+self.file_suffix
 

@@ -8,10 +8,16 @@
         "firstauthor": "First T",
         "date_publication": "2020-12-01",
         "authors": "First T, Other A, Other B",
-        "associated_pgs_ids": [
-            "PGS1",
-            "PGS2"
-        ]
+        "associated_pgs_ids": {
+            "development": [
+                "PGS1",
+                "PGS2"
+            ],
+            "evaluation": [
+                "PGS1",
+                "PGS2"
+            ]
+        }
     },
     {
         "id": "PGP2",
@@ -22,8 +28,13 @@
         "firstauthor": "Second T",
         "date_publication": "2019-10-01",
         "authors": "Second T, Other C, Other D, Other E",
-        "associated_pgs_ids": [
-            "PGS3"
-        ]
+        "associated_pgs_ids": {
+            "development": [
+                "PGS3"
+            ],
+            "evaluation": [
+                "PGS3"
+            ]
+        }
     }
 ]

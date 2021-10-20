@@ -49,6 +49,7 @@
         "variants_number": 100,
         "variants_interactions": 0,
         "variants_genomebuild": "NR",
+        "weight_type": "log(OR)",
         "ancestry_distribution": {
             "dev": {
                 "dist": {
@@ -119,6 +120,7 @@
         "variants_number": 100,
         "variants_interactions": 0,
         "variants_genomebuild": "NR",
+        "weight_type": "beta",
         "ancestry_distribution": {
             "eval": {
                 "dist": {
@@ -231,6 +233,7 @@
         "variants_number": 3200000,
         "variants_interactions": 0,
         "variants_genomebuild": "hg19",
+        "weight_type": "NR",
         "ancestry_distribution": {
             "dev": {
                 "dist": {
