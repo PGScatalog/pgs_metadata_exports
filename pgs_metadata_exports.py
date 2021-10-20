@@ -1,9 +1,9 @@
-import os, os.path, sys
-import re
+import os, os.path
 import argparse
 import requests
 import shutil
 import tarfile
+import time
 from pgs_exports.PGSExportGenerator import PGSExportGenerator
 from pgs_exports.PGSFtpGenerator import PGSFtpGenerator
 
@@ -57,6 +57,8 @@ def get_all_pgs_data(url_root):
     for type in ['score', 'trait', 'publication', 'performance', 'cohort']:
         print(f'\t- Fetch all {type}s')
         tmp_data = rest_api_call(url_root, f'{type}/all')
+        # Wait a bit to avoid reaching the maximum of allowed queries/min (might be increased)
+        time.sleep(5)
         if tmp_data:
             print(f'\t\t> {type}s: {len(tmp_data)} entries')
             data[type] = tmp_data
@@ -249,16 +251,21 @@ def main():
     # Generate Export files #
     #-----------------------#
 
+    large_publication_ids_list = ['PGP000244']
+
     # Get the list of published PGS IDs
     score_ids_list = [ x['id'] for x in data['score'] ]
 
-    exports_generator = PGSExportGenerator(export_dir,data,scores_list_file,score_ids_list,current_release_date,ancestry_categories,debug)
+    exports_generator = PGSExportGenerator(export_dir,data,scores_list_file,score_ids_list,large_publication_ids_list,current_release_date,ancestry_categories,debug)
 
     # Generate file listing all the released Scores
     exports_generator.generate_scores_list_file()
 
     # Generate all PGS metadata export files
     exports_generator.call_generate_all_metadata_exports()
+
+    # Generate all PGS metadata export files
+    exports_generator.call_generate_large_studies_metadata_exports()
 
     # Generate PGS metadata export files for each released studies
     exports_generator.call_generate_studies_metadata_exports()
@@ -267,7 +274,7 @@ def main():
     #------------------------#
     # Generate FTP structure #
     #------------------------#
-    ftp_generator = PGSFtpGenerator(export_dir,new_ftp_dir,score_ids_list,previous_release_date,use_remote_ftp,debug)
+    ftp_generator = PGSFtpGenerator(export_dir,new_ftp_dir,score_ids_list,large_publication_ids_list,previous_release_date,use_remote_ftp,debug)
 
     # Build FTP structure for metadata files
     ftp_generator.build_metadata_ftp()
@@ -277,6 +284,9 @@ def main():
 
     # Build FTP structure for the bulk metadata files
     ftp_generator.build_bulk_metadata_ftp()
+
+    # Build FTP structure for the large study metadata files
+    ftp_generator.build_large_study_metadata_ftp()
 
     # Generates the compressed archive to be copied to the EBI Private FTP
     tardir(new_ftp_dir, archive_file_name)

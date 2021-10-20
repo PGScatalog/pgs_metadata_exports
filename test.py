@@ -33,6 +33,8 @@ class TestSum(unittest.TestCase):
         "OTH": "Additional Diverse Ancestries",
         "NR": "Not Reported"
     }
+
+    large_publication_ids_list = ['PGP1']
     
     export_dir = current_dir+'/tests/export/'
     scores_list_file = export_dir+'pgs_scores_list.txt'
@@ -60,17 +62,19 @@ class TestSum(unittest.TestCase):
 
         self.create_pgs_directory(self.export_dir)
 
-
         # Get the list of published PGS IDs
         self.score_ids_list = [ x['id'] for x in self.data['score'] ]
 
-        exports_generator = PGSExportGenerator(self.export_dir,self.data,self.scores_list_file,self.score_ids_list,self.current_release_date,self.ancestry_categories,self.debug)
+        exports_generator = PGSExportGenerator(self.export_dir,self.data,self.scores_list_file,self.score_ids_list,self.large_publication_ids_list,self.current_release_date,self.ancestry_categories,self.debug)
 
         # Generate file listing all the released Scores
         exports_generator.generate_scores_list_file()
 
         # Generate all PGS metadata export files
         exports_generator.call_generate_all_metadata_exports()
+
+        # Generate all PGS metadata export files
+        exports_generator.call_generate_large_studies_metadata_exports()
 
         # Generate PGS metadata export files for each released studies
         exports_generator.call_generate_studies_metadata_exports()
@@ -110,11 +114,16 @@ class TestSum(unittest.TestCase):
 
         pgs_all = 'pgs_all'
         # Compare individual files
-        for pgs_id in (*self.score_ids_list, pgs_all):
+        for pgs_id in (*self.score_ids_list, pgs_all, *self.large_publication_ids_list):
+            test_tar_dir = self.export_dir
             print("# "+pgs_id)
             if pgs_id == pgs_all:
                 test_dir = f'{self.export_dir}/all_metadata'
                 ref_dir = f'{self.current_dir}/tests/output/all_metadata'
+            elif pgs_id.startswith('PGP'):
+                test_dir = f'{self.export_dir}/publications_metadata/{pgs_id}'
+                ref_dir = f'{self.current_dir}/tests/output/publications_metadata/{pgs_id}'
+                test_tar_dir += f'/publications_metadata/'
             else:
                 test_dir = f'{self.export_dir}/{pgs_id}/Metadata'
                 ref_dir = f'{self.current_dir}/tests/output/{pgs_id}/Metadata'
@@ -136,13 +145,12 @@ class TestSum(unittest.TestCase):
 
             # tar.gz file
             tar_filename = f'{pgs_id}_metadata.tar.gz'
-            test_tar_filepath = f'{self.export_dir}/{tar_filename}'
+            test_tar_filepath = f'{test_tar_dir}/{tar_filename}'
             # Test file exist
             self.assertEqual(os.path.exists(test_tar_filepath),1)
             # Test file not empty
             test_tar_filesize = os.path.getsize(test_tar_filepath)
             self.assertGreater(test_tar_filesize,0)
-
 
     def get_md5_file_checksum(self,filename,blocksize=4096):
         """ Returns MD5 checksum for the given file. """

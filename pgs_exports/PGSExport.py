@@ -64,6 +64,7 @@ class PGSExport:
                 {'name': 'variants_genomebuild', 'label': 'Original Genome Build'},
                 {'name': 'variants_number', 'label': 'Number of Variants'},
                 {'name': 'variants_interactions', 'label': 'Number of Interaction Terms'},
+                {'name': 'weight_type', 'label': 'Type of Variant Weight'},
                 {'name': 'pub_id', 'label': 'PGS Publication (PGP) ID'},
                 {'name': 'pub_pmid_label', 'label': 'Publication (PMID)'},
                 {'name': 'pub_doi_label', 'label': 'Publication (doi)'},
@@ -135,11 +136,13 @@ class PGSExport:
     # General methods #
     #-----------------#
 
-    def __init__(self, filename, data, ancestry_categories):
+    def __init__(self, filename, data, ancestry_categories,pub_focused=None):
         self.filename = filename
         self.data = data
         self.ancestry_categories = ancestry_categories
+        self.pub_focused = pub_focused
         self.pgs_list = []
+        self.publication_ids = []
         self.writer = pd.ExcelWriter(filename, engine='xlsxwriter')
 
         # Order of the spreadsheets
@@ -571,11 +574,14 @@ class PGSExport:
                 # Score publication
                 tmp_publication_ids.add(score['publication']['id'])
 
-                # Performance publication
-                score_performances = [ p for p in self.data['performance'] if p['associated_pgs_id'] == score['id'] ]
-                #Performance.objects.filter(score=score)
-                for score_perf in score_performances:
-                    tmp_publication_ids.add(score_perf['publication']['id'])
+                # Check if export focused on large studies
+                if not self.pub_focused:
+                    # Performance publication
+                    score_performances = [ p for p in self.data['performance'] if p['associated_pgs_id'] == score['id'] ]
+                    for score_perf in score_performances:
+                        tmp_publication_ids.add(score_perf['publication']['id'])
+                else:
+                    self.publication_ids = tmp_publication_ids
             publications = [ x for x in self.data['publication'] if x['id'] in tmp_publication_ids ]
             publications.sort(key=lambda x: x['id'], reverse=False)
 
@@ -640,8 +646,7 @@ class PGSExport:
                             tmp_cohort_ids.add(s_cohort['name_short'])
                 # Evaluation cohorts (via Performance Metrics and Sample Sets)
                 performances = [ p for p in self.data['performance'] if p['associated_pgs_id'] == score['id'] ]
-                samplesets = {}
-                score_samplesets = {}
+
                 for perf in performances:
                     sampleset = perf['sampleset']
                     for sample in sampleset['samples']:
