@@ -251,7 +251,7 @@ def main():
     # Generate Export files #
     #-----------------------#
 
-    large_publication_ids_list = ['PGP000244']
+    large_publication_ids_list = ['PGP000244','PGP000263']
 
     # Get the list of published PGS IDs
     score_ids_list = [ x['id'] for x in data['score'] ]

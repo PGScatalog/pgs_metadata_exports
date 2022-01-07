@@ -17,7 +17,7 @@ class PGSBuildFtp:
     data_dir = '/scores/'
     scoring_dir = '/ScoringFiles/'
     meta_dir    = '/Metadata/'
-    pub_dir     = meta_dir.lower()+'publication/'
+    pub_dir     = meta_dir.lower()+'publications/'
     meta_file_extension = '.tar.gz'
 
 
