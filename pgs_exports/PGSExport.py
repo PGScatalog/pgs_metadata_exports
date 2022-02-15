@@ -17,8 +17,9 @@ class PGSExport:
     fields_to_include = {
         'Cohort':
             [
-                 {'name': 'name_short', 'label': 'Cohort ID'},
-                 {'name': 'name_full', 'label': 'Cohort Name'}
+                {'name': 'name_short', 'label': 'Cohort ID'},
+                {'name': 'name_full', 'label': 'Cohort Name'},
+                {'name': 'name_others', 'label': 'Previous/other/additional names'}
             ],
         'EFOTrait':
             [

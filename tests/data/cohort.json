@@ -1,22 +1,27 @@
 [
     {
         "name_short": "ABC",
-        "name_full": "Cohort ABC"
+        "name_full": "Cohort ABC",
+        "name_others": "ABC-1"
     },
     {
         "name_short": "DEF",
-        "name_full": "Cohort DEF"
+        "name_full": "Cohort DEF",
+        "name_others": null
     },
     {
         "name_short": "GHIJ",
-        "name_full": "Cohort GHIJ"
+        "name_full": "Cohort GHIJ",
+        "name_others": null
     },
     {
         "name_short": "KLMN",
-        "name_full": "Cohort KLMN"
+        "name_full": "Cohort KLMN",
+        "name_others": null
     },
     {
         "name_short": "UKB",
-        "name_full": "UK Biobank"
+        "name_full": "UK Biobank",
+        "name_others": "UKBB"
     }
 ]
