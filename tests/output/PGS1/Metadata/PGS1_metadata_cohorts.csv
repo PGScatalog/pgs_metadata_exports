@@ -1,4 +1,4 @@
-Cohort ID,Cohort Name
-ABC,Cohort ABC
-DEF,Cohort DEF
-GHIJ,Cohort GHIJ
+Cohort ID,Cohort Name,Previous/other/additional names
+ABC,Cohort ABC,ABC-1
+DEF,Cohort DEF,
+GHIJ,Cohort GHIJ,
