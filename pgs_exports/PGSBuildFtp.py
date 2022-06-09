@@ -11,7 +11,7 @@ from ftplib import FTP
 class PGSBuildFtp:
     """ Fetch files from FTP and compare them with the newly generated files. """
 
-    ftp_path = '/ebi/ftp/pub/databases/spot/pgs/'
+    ftp_path = '/nfs/ftp/public/databases/spot/pgs/'
     allowed_types = ['score','metadata','publication']
     all_meta_file = 'pgs_all_metadata.tar.gz'
     data_dir = '/scores/'
