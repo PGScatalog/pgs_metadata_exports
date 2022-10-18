@@ -182,7 +182,7 @@ class PGSExport:
 
     def save(self):
         ''' Close the Pandas Excel writer and output the Excel file '''
-        self.writer.save()
+        self.writer.close()
 
 
     def generate_sheets(self, csv_prefix):
