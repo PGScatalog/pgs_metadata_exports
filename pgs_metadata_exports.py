@@ -33,6 +33,7 @@ def rest_api_call(url,endpoint,parameters=None):
             results = response_json['results']
             # Loop over the pages
             while response_json['next'] and count_items > len(results):
+                time.sleep(1)
                 response = requests.get(response_json['next'])
                 response_json = response.json()
                 results = results + response_json['results']
@@ -251,7 +252,7 @@ def main():
     # Generate Export files #
     #-----------------------#
 
-    large_publication_ids_list = ['PGP000244','PGP000263']
+    large_publication_ids_list = ['PGP000244','PGP000263','PGP000332']
 
     # Get the list of published PGS IDs
     score_ids_list = [ x['id'] for x in data['score'] ]
