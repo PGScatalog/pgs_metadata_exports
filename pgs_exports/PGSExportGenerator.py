@@ -1,4 +1,4 @@
-import sys, os.path
+import os.path
 from pgs_exports.PGSExport import PGSExport, PGSExportAllMetadata
 
 #--------------------------------#
