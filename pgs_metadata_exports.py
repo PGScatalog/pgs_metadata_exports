@@ -8,6 +8,9 @@ from pgs_exports.PGSExportGenerator import PGSExportGenerator
 from pgs_exports.PGSFtpGenerator import PGSFtpGenerator
 
 
+large_publication_ids_list = ['PGP000244','PGP000263','PGP000332','PGP000393']
+
+
 def rest_api_call(url,endpoint,parameters=None):
     """"
     Generic method to perform REST API calls to the PGS Catalog
@@ -251,8 +254,6 @@ def main():
     #-----------------------#
     # Generate Export files #
     #-----------------------#
-
-    large_publication_ids_list = ['PGP000244','PGP000263','PGP000332']
 
     # Get the list of published PGS IDs
     score_ids_list = [ x['id'] for x in data['score'] ]
