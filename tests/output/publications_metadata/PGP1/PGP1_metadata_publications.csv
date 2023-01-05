@@ -1,2 +1,2 @@
-PGS Publication/Study (PGP) ID,First Author,Title,Journal Name,Publication Date,Authors,digital object identifier (doi),PubMed ID (PMID)
-PGP1,First T,Test publication 1.,Test Journal,2020-12-01,"First T, Other A, Other B",10.1010/test/test1,10000001
+PGS Publication/Study (PGP) ID,First Author,Title,Journal Name,Publication Date,Release Date,Authors,digital object identifier (doi),PubMed ID (PMID)
+PGP1,First T,Test publication 1.,Test Journal,2020-12-01,2022-12-01,"First T, Other A, Other B",10.1010/test/test1,10000001
