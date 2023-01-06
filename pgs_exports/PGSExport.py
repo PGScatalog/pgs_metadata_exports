@@ -74,6 +74,7 @@ class PGSExport:
                 {'name': 'ancestry_dev', 'label': 'Ancestry Distribution (%) - Score Development/Training'},
                 {'name': 'ancestry_eval', 'label': 'Ancestry Distribution (%) - PGS Evaluation'},
                 {'name': 'ftp_scoring_file', 'label': 'FTP link'},
+                {'name': 'date_release', 'label': 'Release Date'},
                 {'name': 'license', 'label': 'License/Terms of Use'}
             ],
         'Performance':
@@ -95,6 +96,7 @@ class PGSExport:
                 {'name': 'title', 'label': 'Title'},
                 {'name': 'journal', 'label': 'Journal Name'},
                 {'name': 'date_publication', 'label': 'Publication Date'},
+                {'name': 'date_release', 'label': 'Release Date'},
                 {'name': 'authors', 'label': 'Authors'},
                 {'name': 'doi', 'label': 'digital object identifier (doi)'},
                 {'name': 'PMID', 'label': 'PubMed ID (PMID)'}

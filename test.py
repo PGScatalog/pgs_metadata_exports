@@ -8,7 +8,7 @@ from pgs_exports.PGSBuildFtp import PGSBuildFtp
 
 class TestSum(unittest.TestCase):
 
-    current_dir = os.path.abspath(__file__).split(__file__)[0]
+    current_dir = os.getcwd()
 
     csv_files_types = [
         'efo_traits', 

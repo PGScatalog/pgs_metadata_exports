@@ -7,6 +7,7 @@
         "journal": "Test Journal",
         "firstauthor": "First T",
         "date_publication": "2020-12-01",
+        "date_release": "2022-12-01",
         "authors": "First T, Other A, Other B",
         "associated_pgs_ids": {
             "development": [
@@ -27,6 +28,7 @@
         "journal": "Test Journal v2",
         "firstauthor": "Second T",
         "date_publication": "2019-10-01",
+        "date_release": "2022-10-01",
         "authors": "Second T, Other C, Other D, Other E",
         "associated_pgs_ids": {
             "development": [

@@ -68,6 +68,7 @@
                 }
             }
         },
+        "date_release": "2022-12-01",
         "license": "PGS obtained from the Catalog should be cited appropriately, and used in accordance with any licensing restrictions set by the authors. See EBI Terms of Use (https://www.ebi.ac.uk/about/terms-of-use/) for additional details."
     },
     {
@@ -133,6 +134,7 @@
                 }
             }
         },
+        "date_release": "2022-12-01",
         "license": "PGS obtained from the Catalog should be cited appropriately, and used in accordance with any licensing restrictions set by the authors. See EBI Terms of Use (https://www.ebi.ac.uk/about/terms-of-use/) for additional details."
     },
     {
@@ -261,6 +263,7 @@
                 }
             }
         },
+        "date_release": "2022-10-01",
         "license": "PGS obtained from the Catalog should be cited appropriately, and used in accordance with any licensing restrictions set by the authors. See EBI Terms of Use (https://www.ebi.ac.uk/about/terms-of-use/) for additional details."
     }
 ]
