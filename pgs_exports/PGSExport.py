@@ -127,7 +127,7 @@ class PGSExport:
         'OR': 'Odds Ratio (OR)',
         'β': 'Beta',
         'AUROC': 'Area Under the Receiver-Operating Characteristic Curve (AUROC)',
-        'C-index': 'Corcordance Statistic (C-index)',
+        'C-index': 'Concordance Statistic (C-index)',
         other_metric_key: other_metric_label
     }
 
