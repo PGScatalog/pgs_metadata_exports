@@ -293,6 +293,17 @@ def main():
     # Generates the compressed archive to be copied to the EBI Private FTP
     tardir(new_ftp_dir, archive_file_name)
 
+    # Generate release file (containing the release date)
+    release_filename = f'{new_ftp_dir}/release_date.txt'
+    try:
+       release_file = open(release_filename,'w')
+       release_file.write(current_release_date)
+       release_file.close()
+    except:
+        print(f"Can't create the release file '{release_filename}'.")
+        exit()
+
+
 
 if __name__ == '__main__':
     main()
