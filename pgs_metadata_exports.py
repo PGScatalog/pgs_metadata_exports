@@ -60,7 +60,10 @@ def get_all_pgs_data(url_root):
     data = {}
     for type in ['score', 'trait', 'publication', 'performance', 'cohort']:
         print(f'\t- Fetch all {type}s')
-        tmp_data = rest_api_call(url_root, f'{type}/all')
+        if type == 'cohort':
+            tmp_data = rest_api_call(url_root, f'{type}/all', 'fetch_all=1')
+        else:
+            tmp_data = rest_api_call(url_root, f'{type}/all')
         # Wait a bit to avoid reaching the maximum of allowed queries/min (might be increased)
         time.sleep(5)
         if tmp_data:
