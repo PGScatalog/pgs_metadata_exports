@@ -10,7 +10,7 @@ import requests
 from pgs_exports.PGSExportGenerator import PGSExportGenerator
 from pgs_exports.PGSFtpGenerator import PGSFtpGenerator
 
-large_publication_ids_list = ['PGP000244', 'PGP000263', 'PGP000332', 'PGP000393']
+large_publication_ids_list = ['PGP000244', 'PGP000263', 'PGP000332', 'PGP000393', 'PGP000835']
 
 
 def rest_api_call(url, endpoint, parameters=None):
